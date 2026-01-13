@@ -1,26 +1,23 @@
 using Unity.AppUI.UI;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GridManager : MonoBehaviour
 {
     public int gridSize = 10;
-
     public bool[,] grid;
-
     public GameObject[,] cubeInstances;
-
     public Vector3 cellSize;
 
-
-    public void InitializeGrid(GameObject cubePrefab)
+    public void InitializeGrid(GameObject cubePrefab, GameObject iconPrefab)
     {
         grid = new bool[gridSize, gridSize];
         cubeInstances = new GameObject[gridSize, gridSize];
 
         FullTrueGrid();
         InstantiateCubeWhereTrue(cubePrefab);
+        GenerateEmptyMesh(iconPrefab);
     }
-
 
     public void FullTrueGrid()
     {
@@ -64,7 +61,19 @@ public class GridManager : MonoBehaviour
                     GameObject empty = new GameObject("Cell_"+x+"_"+y);
                     empty.transform.SetParent(container.transform, false);
                     empty.transform.localPosition = position;
+                    cubeInstances[x, y] = empty;
                 }
+            }
+        }
+    }
+
+    public void GenerateEmptyMesh(GameObject iconPrefab)
+    {
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                Instantiate(iconPrefab, cubeInstances[x, y].transform.position, Quaternion.identity, cubeInstances[x, y].transform);
             }
         }
     }

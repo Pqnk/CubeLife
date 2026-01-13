@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Cube Prefab")]
+    [Header("Prefabs")]
     [SerializeField] private GameObject cubePrefab;
+    [SerializeField] private GameObject iconPrefab;
 
     [Header("Grid Dimensions")]
     [SerializeField] private int gridSize = 10;
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         // Generate the grid of cubes
         GridManager gridManager = this.gameObject.AddComponent<GridManager>();
-        gridManager.InitializeGrid(cubePrefab);
+        gridManager.InitializeGrid(cubePrefab, iconPrefab);
     }
 
     #endregion

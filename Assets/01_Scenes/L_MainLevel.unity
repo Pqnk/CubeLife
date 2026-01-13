@@ -510,6 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   cubePrefab: {fileID: 5055716533945618157, guid: 9fc1f04b5280a2b4aa536b50facabdde, type: 3}
+  iconPrefab: {fileID: 9156119139437225237, guid: 8d946a9f416418843885a071bb864136, type: 3}
   gridSize: 11
   spacing: 1
   waitTime: 0.01
