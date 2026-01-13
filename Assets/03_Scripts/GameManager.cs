@@ -7,32 +7,35 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject cubePrefab;
 
     [Header("Grid Dimensions")]
-    [SerializeField] private int gridWidth = 10;
-    [SerializeField] private int gridHeight = 10;
+    [SerializeField] private int gridSize = 10;
 
     [Header("Cube In-Between Space")]
     [SerializeField] private float spacing = 0.1f;
 
-
-    #region Start/ Update
+    [Header("Cube WaitTime between Instantiation")]
+    [SerializeField] private float waitTime = 0.2f;
 
     void Start()
     {
-        try
-        {
-            GridGenerator.GenerateGrid(cubePrefab, gridWidth, gridHeight, spacing);
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"Error generating grid: {ex.Message}");
-        }
+        //StartCubeLifeGame();
+        StartCubeLifeGameGrid();
     }
 
-    void Update()
-    {
 
+    #region ----CUBE LIFE STARTING GAME----
+    private void StartCubeLifeGame()
+    {
+        // Generate the grid of cubes
+        GridGenerator gridGenerator = this.gameObject.AddComponent<GridGenerator>();
+        StartCoroutine(gridGenerator.GenerateGrid(cubePrefab, gridSize, spacing, waitTime));
+    }
+
+    private void StartCubeLifeGameGrid()
+    {
+        // Generate the grid of cubes
+        GridManager gridManager = this.gameObject.AddComponent<GridManager>();
+        gridManager.InitializeGrid(cubePrefab);
     }
 
     #endregion
-
 }
