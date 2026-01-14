@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5a6ea01f1d9aa894c99022f1a92d540e
+guid: 1b688c20a41b34140b8209efc3c83a63
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_BaseCube_01
-    second: {fileID: 2100000, guid: 8c794ff2408c15240a30fced1425cec0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_BaseCube_02
-    second: {fileID: 2100000, guid: 1843f70df4cbd3343b36f130f0c476e9, type: 2}
+      name: M_Cell
+    second: {fileID: 2100000, guid: 2d2c6696c15b14e45bbb07d2e4e4e640, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -78,7 +73,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60

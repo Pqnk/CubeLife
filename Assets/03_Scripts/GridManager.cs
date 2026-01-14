@@ -2,79 +2,71 @@ using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GridManager : MonoBehaviour
+public sealed class GridManager : MonoBehaviour
 {
-    public int gridSize = 10;
-    public bool[,] grid;
-    public GameObject[,] cubeInstances;
-    public Vector3 cellSize;
+    #region ----SINGLETON INSTANCE GRIDMANAGER----
+    public static GridManager Instance { get; private set; }
 
-    public void InitializeGrid(GameObject cubePrefab, GameObject iconPrefab)
+    private void Awake()
     {
-        grid = new bool[gridSize, gridSize];
-        cubeInstances = new GameObject[gridSize, gridSize];
-
-        FullTrueGrid();
-        InstantiateCubeWhereTrue(cubePrefab);
-        GenerateEmptyMesh(iconPrefab);
-    }
-
-    public void FullTrueGrid()
-    {
-        for(int x = 0; x < gridSize; x++)
+        if (Instance != null && Instance != this)
         {
-            for(int y = 0; y < gridSize; y++)
-            {
-                grid[x, y] = true;
-            }
+            Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
+    }
+    #endregion
+
+    #region ----VARIABLES----
+    [Header("Grid Static Variables")]
+    public static int GridSize { get; private set; }
+    public static bool[,] BoolGrid { get; private set; }
+    public static GameObject[,] CellGrid { get; private set; }
+    #endregion
+
+    public void InitializeGrid(GameObject cellPrefab, int gridSize)
+    {
+        GridSize = gridSize;
+        BoolGrid = new bool[GridSize, GridSize];
+        CellGrid = new GameObject[GridSize, GridSize];
+        InstantiateDeadCellsGrid(cellPrefab);
     }
 
-    public void ClearGrid()
+    public void InstantiateDeadCellsGrid(GameObject cellPrefab)
     {
-        grid = new bool[gridSize, gridSize];
-    }
-
-    public void InstantiateCubeWhereTrue(GameObject prefab)
-    {
-        cellSize = prefab.GetComponent<BaseCube>().cubeRenderer.bounds.size;
+        Vector3 cellSize = cellPrefab.GetComponent<CellBehavior>().CellSize;
 
         GameObject container = new GameObject("----GRIDCONTAINER----");
         container.transform.position = Vector3.zero;
 
-        for (int x = 0; x < gridSize; x++)
+        for (int x = 0; x < GridSize; x++)
         {
-            for (int y = 0; y < gridSize; y++)
+            for (int z = 0; z < GridSize; z++)
             {
-                if(grid[x, y])
-                {
-                    if (!grid[x, y])
-                        continue;
+                BoolGrid[x, z] = false;
 
-                    Vector3 position = new Vector3(
-                        x * cellSize.x,
-                        0f,
-                        y * cellSize.y
-                    );
+                Vector3 position = new Vector3(
+                    x * cellSize.x,
+                    0f,
+                    z * cellSize.y
+                );
 
-                    //Instantiate(prefab, position, Quaternion.identity);
-                    GameObject empty = new GameObject("Cell_"+x+"_"+y);
-                    empty.transform.SetParent(container.transform, false);
-                    empty.transform.localPosition = position;
-                    cubeInstances[x, y] = empty;
-                }
+                GameObject empty = new GameObject("Cell_" + x +"_"+ "0" +"_" + z);
+                empty.transform.SetParent(container.transform, false);
+                empty.transform.position = position;
+                CellGrid[x, z] = empty;
+                GameObject newCell = Instantiate(cellPrefab, CellGrid[x, z].transform.position, Quaternion.identity, CellGrid[x, z].transform);
+                newCell.GetComponent<CellBehavior>().SetCellState(false);
+                newCell.GetComponent<CellBehavior>().XPosOnGrid = x;
+                newCell.GetComponent<CellBehavior>().ZPosOnGrid = z;
             }
         }
-    }
 
-    public void GenerateEmptyMesh(GameObject iconPrefab)
-    {
-        for (int x = 0; x < gridSize; x++)
+        foreach(GameObject go in CellGrid)
         {
-            for (int y = 0; y < gridSize; y++)
-            {
-                Instantiate(iconPrefab, cubeInstances[x, y].transform.position, Quaternion.identity, cubeInstances[x, y].transform);
-            }
+           go.transform.GetChild(0).GetComponent<CellBehavior>().SetNeighborsCells();
         }
     }
 }

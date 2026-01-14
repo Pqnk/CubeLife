@@ -1,42 +1,47 @@
 
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public sealed class GameManager : MonoBehaviour
 {
-    [Header("Prefabs")]
-    [SerializeField] private GameObject cubePrefab;
-    [SerializeField] private GameObject iconPrefab;
+    #region ----SINGLETON INSTANCE GAMEMANAGER----
+    public static GameManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-    [Header("Grid Dimensions")]
-    [SerializeField] private int gridSize = 10;
+        Instance = this;
+    }
+    #endregion
 
-    [Header("Cube In-Between Space")]
-    [SerializeField] private float spacing = 0.1f;
+    #region ----INSPECTOR PRIVATE VARIABLES----
+    [Header("TO DEFINE : Cell Prefab")]
+    [SerializeField] private GameObject _cellPrefab;
+    [Header("TO DEFINE : Grid Size")]
+    [SerializeField] private int _gridSize = 10;
+    #endregion
 
-    [Header("Cube WaitTime between Instantiation")]
-    [SerializeField] private float waitTime = 0.2f;
+    #region ----MANAGER VARIABLES----
+    [Header("Manager Variables")]
+    private GridManager _gridManager;
+    #endregion
 
     void Start()
     {
-        //StartCubeLifeGame();
-        StartCubeLifeGameGrid();
+        InitialiseGridManager();
     }
 
-
-    #region ----CUBE LIFE STARTING GAME----
-    private void StartCubeLifeGame()
+    private void InitialiseGridManager()
     {
-        // Generate the grid of cubes
-        GridGenerator gridGenerator = this.gameObject.AddComponent<GridGenerator>();
-        StartCoroutine(gridGenerator.GenerateGrid(cubePrefab, gridSize, spacing, waitTime));
-    }
+        // Generate the boolean grid and the GameObject grid
+        GameObject gridManagerContainer = new GameObject("GridManager");
+        gridManagerContainer.transform.position = Vector3.zero;
+        gridManagerContainer.transform.SetParent(this.gameObject.transform.parent, false);
 
-    private void StartCubeLifeGameGrid()
-    {
-        // Generate the grid of cubes
-        GridManager gridManager = this.gameObject.AddComponent<GridManager>();
-        gridManager.InitializeGrid(cubePrefab, iconPrefab);
+        _gridManager = gridManagerContainer.AddComponent<GridManager>();
+        _gridManager.InitializeGrid(_cellPrefab, _gridSize);
     }
-
-    #endregion
 }
