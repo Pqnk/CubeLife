@@ -26,7 +26,7 @@ public sealed class GridManager : MonoBehaviour
     public static GameObject[,] CellGrid { get; private set; }
     #endregion
 
-    public void InitializeGrid(GameObject cellPrefab, int gridSize)
+    public void InitializeGridManager(GameObject cellPrefab, int gridSize)
     {
         GridSize = gridSize;
         BoolGrid = new bool[GridSize, GridSize];
@@ -50,7 +50,7 @@ public sealed class GridManager : MonoBehaviour
                 Vector3 position = new Vector3(
                     x * cellSize.x,
                     0f,
-                    z * cellSize.y
+                    z * cellSize.z
                 );
 
                 GameObject empty = new GameObject("Cell_" + x +"_"+ "0" +"_" + z);

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8947999730422742042}
+  - component: {fileID: 8217907241635573680}
   - component: {fileID: 4963091801614839441}
   m_Layer: 0
   m_Name: P_Cell
@@ -34,6 +35,27 @@ Transform:
   - {fileID: 2388011360114714547}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8217907241635573680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021354305327085970}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4963091801614839441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,8 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CellBehavior
   _aliveCellRenderer: {fileID: 2283341538375377554}
-  _deadCellPrefab: {fileID: 0}
-  _aliveCellPrefab: {fileID: 0}
+  _deadCellPrefab: {fileID: 3391596939439943300}
+  _aliveCellPrefab: {fileID: 5760021008204559927}
   _neighborCells: []
 --- !u!1001 &704311897644873946
 PrefabInstance:
@@ -121,6 +143,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2947003829365251945, guid: 9fc1f04b5280a2b4aa536b50facabdde, type: 3}
   m_PrefabInstance: {fileID: 704311897644873946}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5760021008204559927 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5055716533945618157, guid: 9fc1f04b5280a2b4aa536b50facabdde, type: 3}
+  m_PrefabInstance: {fileID: 704311897644873946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5764694019243314065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -185,5 +212,10 @@ PrefabInstance:
 --- !u!4 &483208474913515778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6247896926151025299, guid: 8d946a9f416418843885a071bb864136, type: 3}
+  m_PrefabInstance: {fileID: 5764694019243314065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3391596939439943300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9156119139437225237, guid: 8d946a9f416418843885a071bb864136, type: 3}
   m_PrefabInstance: {fileID: 5764694019243314065}
   m_PrefabAsset: {fileID: 0}

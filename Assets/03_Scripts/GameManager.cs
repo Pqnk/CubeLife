@@ -42,6 +42,6 @@ public sealed class GameManager : MonoBehaviour
         gridManagerContainer.transform.SetParent(this.gameObject.transform.parent, false);
 
         _gridManager = gridManagerContainer.AddComponent<GridManager>();
-        _gridManager.InitializeGrid(_cellPrefab, _gridSize);
+        _gridManager.InitializeGridManager(_cellPrefab, _gridSize);
     }
 }

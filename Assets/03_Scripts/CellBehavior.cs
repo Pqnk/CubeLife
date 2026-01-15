@@ -16,31 +16,15 @@ public class CellBehavior : MonoBehaviour
     public Vector3 CellSize { get { return _aliveCellRenderer.bounds.size; } }
     public bool IsAlive { get; private set; } = false;
     public int XPosOnGrid { get; set; }
-    public int ZPosOnGrid { get; set; }
     public int YPosOnGrid { get; set; }
+    public int ZPosOnGrid { get; set; }
     #endregion
-
-    void Awake()
-    {
-        _deadCellPrefab      =   this.transform.GetChild(0).gameObject;
-        _aliveCellPrefab     =   this.transform.GetChild(1).gameObject;
-        _aliveCellRenderer   =   _aliveCellPrefab.transform.GetChild(0).GetComponent<MeshRenderer>();
-    }
 
     public void SetCellState(bool isAlive)
     {
         IsAlive = isAlive;
-
-        if(IsAlive)
-        {
-            _aliveCellPrefab.SetActive(true);
-            _deadCellPrefab.SetActive(false);
-        }
-        else
-        {
-            _aliveCellPrefab.SetActive(false);
-            _deadCellPrefab.SetActive(true);
-        }
+        _aliveCellPrefab.SetActive(IsAlive);
+        _deadCellPrefab.SetActive(!IsAlive);
     }
 
     public void SetNeighborsCells()
@@ -57,16 +41,16 @@ public class CellBehavior : MonoBehaviour
                     new Vector3(    XPosOnGrid + 1,  0,  ZPosOnGrid - 1   )
             };
 
-            foreach (Vector3 pos in allPossiblePosition)
+        foreach (Vector3 pos in allPossiblePosition)
+        {
+            if (pos.x >= 0
+                && pos.z >= 0
+                && pos.x < GridManager.GridSize
+                && pos.z < GridManager.GridSize
+                )
             {
-                if (    pos.x >= 0 
-                    &&  pos.z >= 0 
-                    &&  pos.x < GridManager.GridSize 
-                    &&  pos.z < GridManager.GridSize
-                    )
-                {
-                    _neighborCells.Add(  GridManager.CellGrid[   (int)pos.x, (int)pos.z  ].transform.GetChild(0).GetComponent<CellBehavior>() );
-                }
+                _neighborCells.Add(GridManager.CellGrid[(int)pos.x, (int)pos.z].transform.GetChild(0).GetComponent<CellBehavior>());
             }
+        }
     }
 }

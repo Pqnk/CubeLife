@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "GameOfLifeInput",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "b312fc7c-296b-4131-90d0-205e784e6afe",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "cc48d81b-d589-4c5b-96f6-f7ed1b29683c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f15fcb08-ef87-4f43-8702-80567ab626e9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
