@@ -64,9 +64,17 @@ public sealed class GridManager : MonoBehaviour
             }
         }
 
-        foreach(GameObject go in CellGrid)
+        foreach(GameObject c in CellGrid)
         {
-           go.transform.GetChild(0).GetComponent<CellBehavior>().SetNeighborsCells();
+           c.transform.GetChild(0).GetComponent<CellBehavior>().SetNeighborsCells();
+        }
+    }
+
+    public void ResetGridToAllDead()
+    {
+        foreach (GameObject c in CellGrid)
+        {
+            c.transform.GetChild(0).GetComponent<CellBehavior>().SetCellState(false);
         }
     }
 }

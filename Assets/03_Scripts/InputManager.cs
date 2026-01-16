@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -20,12 +21,19 @@ public class InputManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
                 GameObject clickedObject = hitInfo.collider.gameObject;              
-                hitInfo.collider.gameObject.GetComponentInParent<CellBehavior>().SetCellState(
-                    !hitInfo.collider.gameObject.GetComponentInParent<CellBehavior>().IsAlive
-                    );
+             
+                if (clickedObject.TryGetComponent<CellBehavior>(out CellBehavior cellClicked) && !GameManager.Instance.GameStarted)
+                {
+                    OnClickOnCell(cellClicked, hitInfo);
+                }
 
             }
         }
+    }
+
+    private void OnClickOnCell(CellBehavior cellClicked, RaycastHit hitInfo)
+    {
+        cellClicked.SetCellState(!hitInfo.collider.gameObject.GetComponentInParent<CellBehavior>().IsAlive);
     }
 
 }
