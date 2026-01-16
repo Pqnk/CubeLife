@@ -1,7 +1,7 @@
-using UnityEngine;
 using TMPro;
-
-
+using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,15 +20,56 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region ----UI ELEMENTS----
-    [Header("UI Steps Number")]
-    [SerializeField] private TextMeshProUGUI numberStepUITEXT;
-
-    [Header("UI Start/Pause Button")]
-    [SerializeField] private TextMeshProUGUI startPauseButtonTEXT;
+    #region ----CANVAS----
+    [Header("Canvas")]
+    [SerializeField] private Canvas gameDisplayCanvas;
+    [SerializeField] private Canvas gridParameterCanvas;
     #endregion
 
-    #region ----OnClickButtons----
+    #region ----CANVAS GAME DISPLAY - UI ELEMENTS----
+    [Header("GAME DISPLAY UI: Texts Infos")]
+    [SerializeField] private TextMeshProUGUI numberStepUITEXT;
+    [SerializeField] private TextMeshProUGUI startPauseButtonTEXT;
+    [SerializeField] private TextMeshProUGUI gridSizeInfo;
+    [SerializeField] private TextMeshProUGUI DesiredEndStepInfo;
+    [SerializeField] private Slider gameSpeedSlider;
+    #endregion
+
+    #region ----CANVAS GRID PARAMETER - UI ELEMENTS----
+
+    [Header("GRID PARAMETER UI : Sliders & Values")]
+    [SerializeField] private Slider gridSizeSlider;
+    [SerializeField] private Slider desiredEndStepSlider;
+    [SerializeField] private TextMeshProUGUI gridSizeSliderValue;
+    [SerializeField] private TextMeshProUGUI desiredEndStepSliderValue;
+    #endregion
+
+    #region ----CANVAS GRID PARAMETER - LITHENERS----
+    private void UpdateGridSizeSliderTextValue(float value)
+    {
+        gridSizeSliderValue.text = value.ToString();
+    }
+
+    private void UpdateDesiredEndStepSliderTextValue(float value)
+    {
+        desiredEndStepSliderValue.text = value.ToString();
+    }
+    #endregion
+
+    #region ----CANVAS GRID PARAMETER - ON CLICK ON BUTTONS----
+    public void OnClickOnSaveAndBeginButton()
+    {
+        int gridSize = (int)gridSizeSlider.value;
+        int desiredEndStep = (int)desiredEndStepSlider.value;
+        gameDisplayCanvas.gameObject.SetActive(true);
+        gridParameterCanvas.gameObject.SetActive(false);
+
+        GameManager.Instance.SaveGridParametersValueAndBegin(gridSize, desiredEndStep);
+    }
+
+    #endregion
+
+    #region ----CANVAS GAME DISPLAY - ON CLICK ON BUTTONS----
     public void OnClickStartPauseButton()
     {
         GameManager.Instance.ToggleStartPauseGame();
@@ -43,9 +84,9 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region ----UPDATE UI----
+    #region ----CANVAS GAME DISPLAY - UPDATE UI----
 
-    public void UpdateUI()
+    public void UpdateGameUI()
     {
         UpdateTextButtonStartStop();
         UpdateNumberStepUI();
@@ -75,5 +116,52 @@ public class UIManager : MonoBehaviour
         numberStepUITEXT.text = GameManager.Instance.NumberStep.ToString();
     }
 
+    public void UpdateParametersInfos()
+    {
+        gridSizeInfo.text = SaveParametersManager.ChargeSavedGridParametersFile().gridSize.ToString();
+        DesiredEndStepInfo.text = SaveParametersManager.ChargeSavedGridParametersFile().desiredEndStep.ToString();
+    }
+
     #endregion
+
+    #region ----CANVAS GAME DISPLAY - LITHENERS----
+    public void UpdateSpeedGame(float value)
+    {
+        GameManager.Instance.UpdateSpeedGame((int)value);
+    }
+    #endregion
+
+    private void Start()
+    {
+        gridSizeSlider.onValueChanged.AddListener(UpdateGridSizeSliderTextValue);
+        desiredEndStepSlider.onValueChanged.AddListener(UpdateDesiredEndStepSliderTextValue);
+        gridSizeSliderValue.text = gridSizeSlider.value.ToString();
+        desiredEndStepSliderValue.text = desiredEndStepSlider.value.ToString();
+
+        gameSpeedSlider.onValueChanged.AddListener(UpdateSpeedGame);
+
+        if (SaveParametersManager.DoesSaveFileAlreadyExists())
+        {
+            gameDisplayCanvas.gameObject.SetActive(true);
+            gridParameterCanvas.gameObject.SetActive(false);
+
+            GameManager.Instance.ChargeGridParameterValuesAndBegin();
+        }
+        else
+        {
+            gameDisplayCanvas.gameObject.SetActive(false);
+            gridParameterCanvas.gameObject.SetActive(true);
+        }
+
+    }
+
+    public void OnClickOnChangeParameters()
+    {
+        GameManager.Instance.ResetGame();
+        gameDisplayCanvas.gameObject.SetActive(false);
+        gridParameterCanvas.gameObject.SetActive(true);
+
+        // Need to reset the Grid also ! First thing to do monday morning
+    }
+
 }

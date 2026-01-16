@@ -29,52 +29,25 @@ public sealed class GameManager : MonoBehaviour
     #region ----INSPECTOR PRIVATE VARIABLES----
     [Header("Cell Prefab")]
     [SerializeField] private GameObject _cellPrefab;
-
-    [Header("Grid Size")]
-    [SerializeField] private int _gridSize = 10;
-
-    [Header("Game Speed")]
-    [Range(1, 100)]
-    [SerializeField] private int _gameSpeed = 1;
-
-    [Header("Desired end step")]
-    [SerializeField] private int _desiredEndStep = 0;
-    #endregion
-
-    #region ----MANAGER VARIABLES----
-    [Header("Manager Variables")]
-    private GridManager _gridManager;
     #endregion
 
     #region ----GAMEMANAGER PROPERTIES and VARIABLES----
     private Coroutine _gameCoroutine = null;
+    public  int GridSize { get; private set; } = 10;
+    public int GameSpeed { get; private set; } = 1;
     public int NumberStep { get; private set; } = 0;
     public bool GameStarted { get { return GameState == GameState.Running || GameState == GameState.Paused; } }
     public GameState GameState { get; private set; } = GameState.Stopped;
-    public bool DesiredEndStepReached { get { return (_desiredEndStep > 0 && NumberStep >= _desiredEndStep); } }
+    public int DesiredEndStep { get; private set; } = 0;
+    public bool DesiredEndStepReached { get { return (DesiredEndStep > 0 && NumberStep >= DesiredEndStep); } }
     #endregion
-
-    void Start()
-    {
-        InitialiseGridManager();
-    }
-    private void InitialiseGridManager()
-    {
-        // Generate the boolean grid and the GameObject grid
-        GameObject gridManagerContainer = new GameObject("GridManager");
-        gridManagerContainer.transform.position = Vector3.zero;
-        gridManagerContainer.transform.SetParent(this.gameObject.transform.parent, false);
-
-        _gridManager = gridManagerContainer.AddComponent<GridManager>();
-        _gridManager.InitializeGridManager(_cellPrefab, _gridSize);
-    }
 
     #region ----GAME RUNNING COROUTINE----
     private IEnumerator StartStepCounting()
     {
         while (GameState == GameState.Running && !DesiredEndStepReached)
         {
-            yield return new WaitForSeconds((1f / _gameSpeed) * 0.5f);
+            yield return new WaitForSeconds((1f / GameSpeed) * 0.5f);
             NumberStep++;
 
             if (DesiredEndStepReached)
@@ -82,13 +55,12 @@ public sealed class GameManager : MonoBehaviour
                 StopGame();
             }
 
-            UIManager.Instance.UpdateUI();
+            UIManager.Instance.UpdateGameUI();
         }
     }
     #endregion
 
     #region ----GAME CONTROL METHODS----
-
     public void ToggleStartPauseGame()
     {
         switch (GameState)
@@ -103,7 +75,7 @@ public sealed class GameManager : MonoBehaviour
 
             case GameState.Stopped:
 
-                if(!DesiredEndStepReached)
+                if (!DesiredEndStepReached)
                 {
                     StartGame();
                 }
@@ -155,12 +127,48 @@ public sealed class GameManager : MonoBehaviour
             StopCoroutine(_gameCoroutine);
             _gameCoroutine = null;
         }
-        NumberStep = 0;
-        GridManager.Instance.ResetGridToAllDead();
         GameState = GameState.Stopped;
+        NumberStep = 0;
+        GameSpeed = 0;
+        GridManager.Instance.ResetGridToAllDead();
     }
 
     #endregion
 
+    private void InitialiseGridManager()
+    {
+        GameObject gridManagerContainer = new GameObject("GridManager");
+        gridManagerContainer.transform.position = Vector3.zero;
+        gridManagerContainer.transform.SetParent(this.gameObject.transform.parent, false);
+        gridManagerContainer.AddComponent<GridManager>();
+        GridManager.Instance.InitializeGridManager(_cellPrefab, GridSize);
+    }
+
+    public void SaveGridParametersValueAndBegin(int gridSize, int desiredEndStep)
+    {
+        GridSize = gridSize;
+        DesiredEndStep = desiredEndStep;
+
+        SaveParametersManager.SaveGridParameters();
+
+        InitialiseGridManager();
+
+        UIManager.Instance.UpdateParametersInfos();
+    }
+
+    public void ChargeGridParameterValuesAndBegin()
+    {
+        GridSize = SaveParametersManager.ChargeSavedGridParametersFile().gridSize;
+        DesiredEndStep = SaveParametersManager.ChargeSavedGridParametersFile().desiredEndStep;
+
+        InitialiseGridManager();
+
+        UIManager.Instance.UpdateParametersInfos();
+    }
+
+    public void UpdateSpeedGame(int newGameSpeed)
+    {
+        GameSpeed = newGameSpeed;
+    }
 
 }

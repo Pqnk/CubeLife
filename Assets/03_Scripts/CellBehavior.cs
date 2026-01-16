@@ -12,7 +12,6 @@ public class CellBehavior : MonoBehaviour
     #endregion
 
     #region ----PROPERTIES CELL BEHAVIOR----
-    [Header("Properties of Cell Beavior")]
     public Vector3 CellSize { get { return _aliveCellRenderer.bounds.size; } }
     public bool IsAlive { get; private set; } = false;
     public int XPosOnGrid { get; set; }
@@ -45,11 +44,11 @@ public class CellBehavior : MonoBehaviour
         {
             if (pos.x >= 0
                 && pos.z >= 0
-                && pos.x < GridManager.GridSize
-                && pos.z < GridManager.GridSize
+                && pos.x < GridManager.Instance.GridSize
+                && pos.z < GridManager.Instance.GridSize
                 )
             {
-                _neighborCells.Add(GridManager.CellGrid[(int)pos.x, (int)pos.z].transform.GetChild(0).GetComponent<CellBehavior>());
+                _neighborCells.Add(GridManager.Instance.CellGrid[(int)pos.x, (int)pos.z].transform.GetChild(0).GetComponent<CellBehavior>());
             }
         }
     }

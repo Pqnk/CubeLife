@@ -1,6 +1,7 @@
 using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.IO;
 
 public sealed class GridManager : MonoBehaviour
 {
@@ -19,11 +20,11 @@ public sealed class GridManager : MonoBehaviour
     }
     #endregion
 
-    #region ----VARIABLES----
-    [Header("Grid Static Variables")]
-    public static int GridSize { get; private set; }
-    public static bool[,] BoolGrid { get; private set; }
-    public static GameObject[,] CellGrid { get; private set; }
+    #region ----GRID MANAGER PROPERTIES----
+    [Header("Grid Manager Properties")]
+    public int GridSize { get; private set; }
+    public bool[,] BoolGrid { get; private set; }
+    public GameObject[,] CellGrid { get; private set; }
     #endregion
 
     public void InitializeGridManager(GameObject cellPrefab, int gridSize)
