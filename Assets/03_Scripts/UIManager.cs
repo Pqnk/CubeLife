@@ -160,9 +160,5 @@ public class UIManager : MonoBehaviour
             gameDisplayCanvas.gameObject.SetActive(false);
             gridParameterCanvas.gameObject.SetActive(true);
         }
-
     }
-
-
-
 }

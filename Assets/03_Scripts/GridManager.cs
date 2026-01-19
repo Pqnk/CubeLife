@@ -1,7 +1,8 @@
+using System.IO;
 using Unity.AppUI.UI;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.IO;
 
 public sealed class GridManager : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public sealed class GridManager : MonoBehaviour
 
         gridContainer = new GameObject("----GRIDCONTAINER----");
         gridContainer.transform.position = Vector3.zero;
+        gridContainer.layer = LayerMask.NameToLayer("Cells");
 
         for (int x = 0; x < GridSize; x++)
         {
@@ -57,10 +59,12 @@ public sealed class GridManager : MonoBehaviour
                 );
 
                 GameObject empty = new GameObject("Cell_" + x + "_" + "0" + "_" + z);
+                empty.layer = LayerMask.NameToLayer("Cells");
                 empty.transform.SetParent(gridContainer.transform, false);
                 empty.transform.position = position;
                 CellGrid[x, z] = empty;
                 GameObject newCell = Instantiate(cellPrefab, CellGrid[x, z].transform.position, Quaternion.identity, CellGrid[x, z].transform);
+                newCell.layer = LayerMask.NameToLayer("Cells");
                 newCell.GetComponent<CellBehavior>().SetCellState(false);
                 newCell.GetComponent<CellBehavior>().XPosOnGrid = x;
                 newCell.GetComponent<CellBehavior>().ZPosOnGrid = z;
@@ -94,11 +98,19 @@ public sealed class GridManager : MonoBehaviour
         }
     }
 
-    public void UpdateAllCellsNextStep()
+    public void UpdateAllCellStatesNextStep()
     {
         foreach (GameObject c in CellGrid)
         {
             c.transform.GetChild(0).GetComponent<CellBehavior>().UpdateCellStateNextStep();
+        }
+    }
+
+    public void ResetAllCellMaterials()
+    {
+        foreach (GameObject c in CellGrid)
+        {
+            c.transform.GetChild(0).GetComponent<CellBehavior>().HighLightNeighbors(false);
         }
     }
 }

@@ -42,27 +42,7 @@ public sealed class GameManager : MonoBehaviour
     public bool DesiredEndStepReached { get { return (DesiredEndStep > 0 && NumberStep >= DesiredEndStep); } }
     #endregion
 
-    #region ----GAME RUNNING COROUTINE----
-    private IEnumerator StartStepCounting()
-    {
-        while (GameState == GameState.Running && !DesiredEndStepReached)
-        {
-            yield return new WaitForSeconds((1f / GameSpeed) * 0.5f);
-            NumberStep++;
-            GridManager.Instance.ApplyGameOfLifeRulesForEachCell();
-            GridManager.Instance.UpdateAllCellsNextStep();
-            
-            if (DesiredEndStepReached)
-            {
-                StopGame();
-            }
-
-            UIManager.Instance.UpdateGameUI();
-        }
-    }
-    #endregion
-
-    #region ----GAME CONTROL METHODS----
+    #region ----GAME METHODS----
     public void ToggleStartPauseGame()
     {
         switch (GameState)
@@ -91,6 +71,7 @@ public sealed class GameManager : MonoBehaviour
         {
             GameState = GameState.Running;
             _gameCoroutine = StartCoroutine(StartStepCounting());
+            GridManager.Instance.ResetAllCellMaterials();
         }
     }
 
@@ -134,14 +115,13 @@ public sealed class GameManager : MonoBehaviour
         GameSpeed = 1;
         GridManager.Instance.ResetGridToAllDead();
     }
-
     public void UpdateSpeedGame(int newGameSpeed)
     {
         GameSpeed = newGameSpeed;
     }
-
     #endregion
 
+    #region ----SAVE PARAMETERS----
     public void SaveGridParametersValueAndBegin(int gridSize, int desiredEndStep)
     {
         GridSize = gridSize;
@@ -163,5 +143,27 @@ public sealed class GameManager : MonoBehaviour
 
         UIManager.Instance.UpdateParametersInfos();
     }
+
+    #endregion
+
+    #region ----STEP COUNTING COROUTINE----
+    private IEnumerator StartStepCounting()
+    {
+        while (GameState == GameState.Running && !DesiredEndStepReached)
+        {
+            yield return new WaitForSeconds((1f / GameSpeed) * 0.5f);
+            NumberStep++;
+            GridManager.Instance.ApplyGameOfLifeRulesForEachCell();
+            GridManager.Instance.UpdateAllCellStatesNextStep();
+
+            if (DesiredEndStepReached)
+            {
+                StopGame();
+            }
+
+            UIManager.Instance.UpdateGameUI();
+        }
+    }
+    #endregion
 
 }
