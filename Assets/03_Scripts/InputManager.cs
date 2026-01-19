@@ -7,6 +7,8 @@ public class InputManager : MonoBehaviour
 {
     private Camera _mainCamera;
 
+    private CellBehavior _cellClicked;
+
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -20,8 +22,8 @@ public class InputManager : MonoBehaviour
             Ray ray = _mainCamera.ScreenPointToRay(mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                GameObject clickedObject = hitInfo.collider.gameObject;              
-             
+                GameObject clickedObject = hitInfo.collider.gameObject;
+
                 if (clickedObject.TryGetComponent<CellBehavior>(out CellBehavior cellClicked) && !GameManager.Instance.GameStarted)
                 {
                     OnClickOnCell(cellClicked, hitInfo);
@@ -33,7 +35,13 @@ public class InputManager : MonoBehaviour
 
     private void OnClickOnCell(CellBehavior cellClicked, RaycastHit hitInfo)
     {
-        cellClicked.SetCellState(!hitInfo.collider.gameObject.GetComponentInParent<CellBehavior>().IsAlive);
+        if (_cellClicked != cellClicked && _cellClicked != null)
+            _cellClicked.HighLightNeighbors(false);
+
+        _cellClicked = cellClicked;
+        _cellClicked.HighLightNeighbors(true);
+
+        _cellClicked.SetCellState(!hitInfo.collider.gameObject.GetComponentInParent<CellBehavior>().IsAlive);
     }
 
 }

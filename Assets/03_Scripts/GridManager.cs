@@ -25,6 +25,8 @@ public sealed class GridManager : MonoBehaviour
     public int GridSize { get; private set; }
     public bool[,] BoolGrid { get; private set; }
     public GameObject[,] CellGrid { get; private set; }
+
+    private GameObject gridContainer;
     #endregion
 
     public void InitializeGridManager(GameObject cellPrefab, int gridSize)
@@ -39,8 +41,8 @@ public sealed class GridManager : MonoBehaviour
     {
         Vector3 cellSize = cellPrefab.GetComponent<CellBehavior>().CellSize;
 
-        GameObject container = new GameObject("----GRIDCONTAINER----");
-        container.transform.position = Vector3.zero;
+        gridContainer = new GameObject("----GRIDCONTAINER----");
+        gridContainer.transform.position = Vector3.zero;
 
         for (int x = 0; x < GridSize; x++)
         {
@@ -54,8 +56,8 @@ public sealed class GridManager : MonoBehaviour
                     z * cellSize.z
                 );
 
-                GameObject empty = new GameObject("Cell_" + x +"_"+ "0" +"_" + z);
-                empty.transform.SetParent(container.transform, false);
+                GameObject empty = new GameObject("Cell_" + x + "_" + "0" + "_" + z);
+                empty.transform.SetParent(gridContainer.transform, false);
                 empty.transform.position = position;
                 CellGrid[x, z] = empty;
                 GameObject newCell = Instantiate(cellPrefab, CellGrid[x, z].transform.position, Quaternion.identity, CellGrid[x, z].transform);
@@ -65,9 +67,9 @@ public sealed class GridManager : MonoBehaviour
             }
         }
 
-        foreach(GameObject c in CellGrid)
+        foreach (GameObject c in CellGrid)
         {
-           c.transform.GetChild(0).GetComponent<CellBehavior>().SetNeighborsCells();
+            c.transform.GetChild(0).GetComponent<CellBehavior>().SetNeighborsCells();
         }
     }
 
@@ -76,6 +78,27 @@ public sealed class GridManager : MonoBehaviour
         foreach (GameObject c in CellGrid)
         {
             c.transform.GetChild(0).GetComponent<CellBehavior>().SetCellState(false);
+        }
+    }
+
+    public void DeleteGrid()
+    {
+        Destroy(gridContainer);
+    }
+
+    public void ApplyGameOfLifeRulesForEachCell()
+    {
+        foreach(GameObject c in CellGrid)
+        {
+            c.transform.GetChild(0).GetComponent<CellBehavior>().ApplyGameOifeRules();
+        }
+    }
+
+    public void UpdateAllCellsNextStep()
+    {
+        foreach (GameObject c in CellGrid)
+        {
+            c.transform.GetChild(0).GetComponent<CellBehavior>().UpdateCellStateNextStep();
         }
     }
 }

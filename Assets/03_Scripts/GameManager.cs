@@ -49,7 +49,9 @@ public sealed class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds((1f / GameSpeed) * 0.5f);
             NumberStep++;
-
+            GridManager.Instance.ApplyGameOfLifeRulesForEachCell();
+            GridManager.Instance.UpdateAllCellsNextStep();
+            
             if (DesiredEndStepReached)
             {
                 StopGame();
@@ -129,20 +131,16 @@ public sealed class GameManager : MonoBehaviour
         }
         GameState = GameState.Stopped;
         NumberStep = 0;
-        GameSpeed = 0;
+        GameSpeed = 1;
         GridManager.Instance.ResetGridToAllDead();
     }
 
-    #endregion
-
-    private void InitialiseGridManager()
+    public void UpdateSpeedGame(int newGameSpeed)
     {
-        GameObject gridManagerContainer = new GameObject("GridManager");
-        gridManagerContainer.transform.position = Vector3.zero;
-        gridManagerContainer.transform.SetParent(this.gameObject.transform.parent, false);
-        gridManagerContainer.AddComponent<GridManager>();
-        GridManager.Instance.InitializeGridManager(_cellPrefab, GridSize);
+        GameSpeed = newGameSpeed;
     }
+
+    #endregion
 
     public void SaveGridParametersValueAndBegin(int gridSize, int desiredEndStep)
     {
@@ -151,7 +149,7 @@ public sealed class GameManager : MonoBehaviour
 
         SaveParametersManager.SaveGridParameters();
 
-        InitialiseGridManager();
+        GridManager.Instance.InitializeGridManager(_cellPrefab, GridSize);
 
         UIManager.Instance.UpdateParametersInfos();
     }
@@ -161,14 +159,9 @@ public sealed class GameManager : MonoBehaviour
         GridSize = SaveParametersManager.ChargeSavedGridParametersFile().gridSize;
         DesiredEndStep = SaveParametersManager.ChargeSavedGridParametersFile().desiredEndStep;
 
-        InitialiseGridManager();
+        GridManager.Instance.InitializeGridManager(_cellPrefab, GridSize);
 
         UIManager.Instance.UpdateParametersInfos();
-    }
-
-    public void UpdateSpeedGame(int newGameSpeed)
-    {
-        GameSpeed = newGameSpeed;
     }
 
 }

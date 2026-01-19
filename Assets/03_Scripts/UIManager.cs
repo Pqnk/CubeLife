@@ -82,14 +82,22 @@ public class UIManager : MonoBehaviour
         UpdateTextButtonStartStop();
         UpdateNumberStepUI();
     }
+
+    public void OnClickOnChangeParameters()
+    {
+        gameDisplayCanvas.gameObject.SetActive(false);
+        gridParameterCanvas.gameObject.SetActive(true);
+        GameManager.Instance.ResetGame();
+        GridManager.Instance.DeleteGrid();
+    }
     #endregion
 
     #region ----CANVAS GAME DISPLAY - UPDATE UI----
 
     public void UpdateGameUI()
     {
-        UpdateTextButtonStartStop();
         UpdateNumberStepUI();
+        UpdateTextButtonStartStop();
     }
 
     private void UpdateTextButtonStartStop()
@@ -155,13 +163,6 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void OnClickOnChangeParameters()
-    {
-        GameManager.Instance.ResetGame();
-        gameDisplayCanvas.gameObject.SetActive(false);
-        gridParameterCanvas.gameObject.SetActive(true);
 
-        // Need to reset the Grid also ! First thing to do monday morning
-    }
 
 }

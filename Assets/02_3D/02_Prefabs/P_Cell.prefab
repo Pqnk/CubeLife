@@ -69,8 +69,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CellBehavior
   _aliveCellRenderer: {fileID: 2283341538375377554}
+  _deadCellRenderer: {fileID: 2919799792549498169}
   _deadCellPrefab: {fileID: 3391596939439943300}
   _aliveCellPrefab: {fileID: 5760021008204559927}
+  _matNormal: {fileID: 2100000, guid: 2d2c6696c15b14e45bbb07d2e4e4e640, type: 2}
+  _matHL: {fileID: 2100000, guid: 4c38f34738783d940a44b563747a8922, type: 2}
   _neighborCells: []
 --- !u!1001 &704311897644873946
 PrefabInstance:
@@ -212,6 +215,11 @@ PrefabInstance:
 --- !u!4 &483208474913515778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6247896926151025299, guid: 8d946a9f416418843885a071bb864136, type: 3}
+  m_PrefabInstance: {fileID: 5764694019243314065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2919799792549498169 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8684480342708258472, guid: 8d946a9f416418843885a071bb864136, type: 3}
   m_PrefabInstance: {fileID: 5764694019243314065}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3391596939439943300 stripped
