@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Unity.AppUI.UI;
 using UnityEditor;
@@ -23,22 +24,35 @@ public sealed class GridManager : MonoBehaviour
 
     #region ----GRID MANAGER PROPERTIES----
     [Header("Grid Manager Properties")]
-    public int GridSize { get; private set; }
+    public int GridSize { get; private set; } = 10;
     public bool[,] BoolGrid { get; private set; }
     public GameObject[,] CellGrid { get; private set; }
 
-    private GameObject gridContainer;
-    #endregion
+    private GameObject gridContainer = null;
 
-    public void InitializeGridManager(GameObject cellPrefab, int gridSize)
+    public GameObject cellPrefab;
+
+    public bool GridGenerated { get { return gridContainer != null; } }
+    #endregion
+    /*
+    #region ----EVENTS MANAGEMENT----
+    public static event Action<Vector3> OnGridParametersChanged;
+
+    public static void EmitGridParameters(Vector3 position)
+    {
+        OnGridParametersChanged?.Invoke(position);
+    }
+    #endregion
+    */
+    public void InitializeGridManager(int gridSize)
     {
         GridSize = gridSize;
         BoolGrid = new bool[GridSize, GridSize];
         CellGrid = new GameObject[GridSize, GridSize];
-        InstantiateDeadCellsGrid(cellPrefab);
+        InstantiateDeadCellsGrid();
     }
-
-    public void InstantiateDeadCellsGrid(GameObject cellPrefab)
+    
+    private void InstantiateDeadCellsGrid()
     {
         Vector3 cellSize = cellPrefab.GetComponent<CellBehavior>().CellSize;
 
@@ -75,6 +89,9 @@ public sealed class GridManager : MonoBehaviour
         {
             c.transform.GetChild(0).GetComponent<CellBehavior>().SetNeighborsCells();
         }
+
+        if (GridSize > 0)
+            EventManager.EmitGridParameters(CellGrid[GridSize - 1, GridSize - 1].transform.position);
     }
 
     public void ResetGridToAllDead()
@@ -87,12 +104,13 @@ public sealed class GridManager : MonoBehaviour
 
     public void DeleteGrid()
     {
-        Destroy(gridContainer);
+        if (gridContainer != null)
+            Destroy(gridContainer);
     }
 
     public void ApplyGameOfLifeRulesForEachCell()
     {
-        foreach(GameObject c in CellGrid)
+        foreach (GameObject c in CellGrid)
         {
             c.transform.GetChild(0).GetComponent<CellBehavior>().ApplyGameOifeRules();
         }

@@ -70,7 +70,7 @@ public sealed class GameManager : MonoBehaviour
         if (_gameCoroutine == null && !GameStarted)
         {
             GameState = GameState.Running;
-            _gameCoroutine = StartCoroutine(StartStepCounting());
+            _gameCoroutine = StartCoroutine(LoopStepCounting());
             GridManager.Instance.ResetAllCellMaterials();
         }
     }
@@ -89,7 +89,7 @@ public sealed class GameManager : MonoBehaviour
         if (_gameCoroutine != null && GameStarted)
         {
             GameState = GameState.Running;
-            _gameCoroutine = StartCoroutine(StartStepCounting());
+            _gameCoroutine = StartCoroutine(LoopStepCounting());
         }
     }
 
@@ -115,22 +115,21 @@ public sealed class GameManager : MonoBehaviour
         GameSpeed = 1;
         GridManager.Instance.ResetGridToAllDead();
     }
+
     public void UpdateSpeedGame(int newGameSpeed)
     {
         GameSpeed = newGameSpeed;
     }
+
     #endregion
 
     #region ----SAVE PARAMETERS----
+
     public void SaveGridParametersValueAndBegin(int gridSize, int desiredEndStep)
     {
         GridSize = gridSize;
         DesiredEndStep = desiredEndStep;
-
         SaveParametersManager.SaveGridParameters();
-
-        GridManager.Instance.InitializeGridManager(_cellPrefab, GridSize);
-
         UIManager.Instance.UpdateParametersInfos();
     }
 
@@ -138,16 +137,19 @@ public sealed class GameManager : MonoBehaviour
     {
         GridSize = SaveParametersManager.ChargeSavedGridParametersFile().gridSize;
         DesiredEndStep = SaveParametersManager.ChargeSavedGridParametersFile().desiredEndStep;
-
-        GridManager.Instance.InitializeGridManager(_cellPrefab, GridSize);
-
+        GridManager.Instance.InitializeGridManager(GridSize);
         UIManager.Instance.UpdateParametersInfos();
     }
 
     #endregion
 
     #region ----STEP COUNTING COROUTINE----
-    private IEnumerator StartStepCounting()
+
+    /// <summary>
+    /// Main Game Loop
+    /// </summary>
+    /// <returns>IEnumerator</returns>
+    private IEnumerator LoopStepCounting()
     {
         while (GameState == GameState.Running && !DesiredEndStepReached)
         {

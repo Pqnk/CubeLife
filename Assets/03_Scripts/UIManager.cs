@@ -1,7 +1,7 @@
 using TMPro;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class UIManager : MonoBehaviour
 {
@@ -160,5 +160,13 @@ public class UIManager : MonoBehaviour
             gameDisplayCanvas.gameObject.SetActive(false);
             gridParameterCanvas.gameObject.SetActive(true);
         }
+    }
+
+
+    public void OnGridSizeValueChanged(float value)
+    {
+        int intValue = (int)value;
+        GridManager.Instance.DeleteGrid();
+        GridManager.Instance.InitializeGridManager(intValue);
     }
 }
