@@ -9,12 +9,26 @@ public class InputManager : MonoBehaviour
 
     private CellBehavior _cellClicked;
 
+    private bool rightClicking;
+    private Vector2 lookDelta;
+    private float sensitivity = 0.1f;
+    [SerializeField] private float minPitch = -80f;
+    [SerializeField] private float maxPitch = 80f;
+    private float yaw;   // axe Y
+    private float pitch; // axe X
+    private Vector2 clickStartPos;
+    private Vector2 currentMousePos;
+
+    [SerializeField] private GameObject _camPivot;
+
     private void Awake()
     {
         _mainCamera = Camera.main;
     }
 
-    public void OnClick(InputAction.CallbackContext context)
+
+    #region ----LeftClick----
+    public void OnLeftClick(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -26,14 +40,14 @@ public class InputManager : MonoBehaviour
 
                 if (clickedObject.TryGetComponent<CellBehavior>(out CellBehavior cellClicked) && !GameManager.Instance.GameStarted)
                 {
-                    OnClickOnCell(cellClicked, hitInfo);
+                    OnLeftClickOnCell(cellClicked, hitInfo);
                 }
 
             }
         }
     }
 
-    private void OnClickOnCell(CellBehavior cellClicked, RaycastHit hitInfo)
+    private void OnLeftClickOnCell(CellBehavior cellClicked, RaycastHit hitInfo)
     {
         if (_cellClicked != cellClicked && _cellClicked != null)
             _cellClicked.HighLightNeighbors(false);
@@ -43,5 +57,46 @@ public class InputManager : MonoBehaviour
 
         _cellClicked.SetCellState(!hitInfo.collider.gameObject.GetComponentInParent<CellBehavior>().IsAlive);
     }
+    #endregion
 
+    #region ----Right Click Hold----
+    public void OnRightClickHold(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            rightClicking = context.ReadValueAsButton();
+            clickStartPos = currentMousePos;
+        }
+        else if(context.canceled)
+        {
+            rightClicking = false;
+        }
+    }
+    #endregion
+
+    #region ----MousePosition----
+    public void OnMousePosition(InputAction.CallbackContext context)
+    {
+        currentMousePos = context.ReadValue<Vector2>();
+    }
+    #endregion
+
+
+    private void Update()
+    {
+        if (rightClicking)
+        {
+            Vector2 delta = currentMousePos - clickStartPos;
+
+            if (delta.sqrMagnitude < 1f)
+                return;
+
+            yaw += delta.x * sensitivity * Time.deltaTime;
+            pitch -= delta.y * sensitivity * Time.deltaTime;
+
+            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+
+            _camPivot.transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+        }
+    }
 }

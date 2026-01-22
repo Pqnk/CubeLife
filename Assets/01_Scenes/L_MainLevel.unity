@@ -3293,6 +3293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae65c787661a9549afeb0b67b5e0fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  minPitch: -80
+  maxPitch: 80
+  _camPivot: {fileID: 1861022200}
 --- !u!114 &1146371225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,7 +3325,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1146371224}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: OnLeftClick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3334,6 +3337,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cc48d81b-d589-4c5b-96f6-f7ed1b29683c
     m_ActionName: 'Gameplay/Click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1146371224}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnRightClickHold
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c5213ff4-5ed6-430b-9483-15bd899a94b7
+    m_ActionName: 'Gameplay/Righ Click Camera[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1146371224}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnMousePosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6bd70fc1-a680-4529-88a1-eacc915b35d6
+    m_ActionName: 'Gameplay/Moving Mouse[/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -4707,8 +4742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93eb5ea7042417e46a253bc14eeba95a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainCameraPivot
-  _rotationSpeed: 0.05
-  _pivotPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1916580801
 GameObject:
   m_ObjectHideFlags: 0

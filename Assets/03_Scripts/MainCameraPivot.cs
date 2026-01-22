@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class MainCameraPivot : MonoBehaviour
 {
-    [SerializeField] private float _rotationSpeed = 0.05f;
-    [SerializeField] private Vector3 _pivotPosition;
+    #region ----VARIABLES - CAMERA----
     private Camera _mainCamera;
     private Vector3 _initLocalPosMainCamera;
 
+    private float _rotationSpeed = 0.05f;
+    private bool _canRotate = false;
+    #endregion
 
 
+    #region ----EVENT - ADAPTING CAMERA DISTANCE WITH GRID SIZE----
     private void OnEnable()
     {
         EventManager.OnGridParametersChanged += OnGridParametersChanged;
@@ -21,14 +24,16 @@ public class MainCameraPivot : MonoBehaviour
 
     private void OnGridParametersChanged(Vector3 position)
     {
-        _pivotPosition = position / 2;
-        this.gameObject.transform.position = _pivotPosition;
+        Vector3 pivotPosition = position / 2;
+        this.gameObject.transform.position = pivotPosition;
 
-        float factor = _pivotPosition.magnitude > 2 ? 0.05f : 0.2f;
+        float factor = pivotPosition.magnitude > 2 ? 0.05f : 0.2f;
 
-        Vector3 newpos = new Vector3(_initLocalPosMainCamera.x, _initLocalPosMainCamera.y * _pivotPosition.magnitude * factor, _initLocalPosMainCamera.z * _pivotPosition.magnitude * factor);
+        Vector3 newpos = new Vector3(_initLocalPosMainCamera.x, _initLocalPosMainCamera.y * pivotPosition.magnitude * factor, _initLocalPosMainCamera.z * pivotPosition.magnitude * factor);
         _mainCamera.gameObject.transform.localPosition = newpos;
     }
+
+    #endregion
 
     void Start()
     {
@@ -38,6 +43,9 @@ public class MainCameraPivot : MonoBehaviour
 
     void Update()
     {
-        this.gameObject.transform.Rotate(new Vector3(0f, _rotationSpeed, 0f));
+        if (_canRotate)
+        {
+            this.gameObject.transform.Rotate(new Vector3(0f, _rotationSpeed, 0f));
+        }
     }
 }
