@@ -32,18 +32,15 @@ public sealed class GridManager : MonoBehaviour
 
     public GameObject cellPrefab;
 
-    public bool GridGenerated { get { return gridContainer != null; } }
-    #endregion
-    /*
-    #region ----EVENTS MANAGEMENT----
-    public static event Action<Vector3> OnGridParametersChanged;
-
-    public static void EmitGridParameters(Vector3 position)
+    public bool IsGridGenerated
     {
-        OnGridParametersChanged?.Invoke(position);
+        get
+        {
+            return gridContainer != null;
+        }
     }
     #endregion
-    */
+
     public void InitializeGridManager(int gridSize)
     {
         GridSize = gridSize;
@@ -51,7 +48,7 @@ public sealed class GridManager : MonoBehaviour
         CellGrid = new GameObject[GridSize, GridSize];
         InstantiateDeadCellsGrid();
     }
-    
+
     private void InstantiateDeadCellsGrid()
     {
         Vector3 cellSize = cellPrefab.GetComponent<CellBehavior>().CellSize;

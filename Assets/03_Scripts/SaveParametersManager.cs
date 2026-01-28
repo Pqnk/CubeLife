@@ -3,11 +3,23 @@ using UnityEngine;
 
 public static class SaveParametersManager
 {
-    private static string SaveDataPath { get { return Path.Combine(Application.persistentDataPath, "saveGridParameters.json");  } }
+    /// <summary>
+    /// Property for the path of the save file
+    /// </summary>
+    private static string SaveDataPath
+    {
+        get
+        {
+            return Path.Combine(Application.persistentDataPath, "saveGridParameters.json");
+        }
+    }
 
+    /// <summary>
+    /// Methode to create file and save parameters of the Grid
+    /// </summary>
     public static void SaveGridParameters()
     {
-        SaveData data = new SaveData
+        SaveDataGridParameters data = new SaveDataGridParameters
         {
             gridSize = GameManager.Instance.GridSize,
             desiredEndStep = GameManager.Instance.DesiredEndStep
@@ -17,19 +29,27 @@ public static class SaveParametersManager
         File.WriteAllText(SaveDataPath, json);
     }
 
-    public static SaveData ChargeSavedGridParametersFile()
+    /// <summary>
+    /// Method to get the datas from the save file - class SaveDataGridParameters
+    /// </summary>
+    /// <returns>SaveDataGridParameters</returns>
+    public static SaveDataGridParameters ChargeSavedGridParametersFile()
     {
-        SaveData data = null;
+        SaveDataGridParameters data = null;
 
         if (File.Exists(SaveDataPath))
         {
             string json = File.ReadAllText(SaveDataPath);
-            data = JsonUtility.FromJson<SaveData>(json);
+            data = JsonUtility.FromJson<SaveDataGridParameters>(json);
         }
 
         return data;
     }
 
+    /// <summary>
+    /// Methode to get if a Savefie already exists
+    /// </summary>
+    /// <returns>bool</returns>
     public static bool DoesSaveFileAlreadyExists()
     {
         return File.Exists(SaveDataPath);

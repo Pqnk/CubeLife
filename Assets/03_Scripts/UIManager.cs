@@ -162,7 +162,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Method referenced in the inspector of "----UI---- > Canvas-GridParameter>Panel > Slider-GridParameter-GridSize", in the "On Value Changed" field. 'Dynamic float'.
+    /// Gets called everytime user change the 'Grid Size' slider value.
+    /// 
+    /// </summary>
+    /// <param name="value">Float value of the Slider</param>
     public void OnGridSizeValueChanged(float value)
     {
         int intValue = (int)value;

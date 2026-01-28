@@ -5,9 +5,9 @@ public static class EventManager
 {
     public static event Action<Vector3> OnGridParametersChanged;
 
-    public static void EmitGridParameters(Vector3 position)
+    public static void EmitGridParameters(Vector3 upperRightCellPosition)
     {
-        OnGridParametersChanged?.Invoke(position);
+        OnGridParametersChanged?.Invoke(upperRightCellPosition);
     }
 
 }
