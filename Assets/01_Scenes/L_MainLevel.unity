@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 43882236}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1645829036}
   m_Father: {fileID: 2090974065}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 58708955}
   - component: {fileID: 58708957}
   - component: {fileID: 58708956}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - DesiredEndStep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 140984725}
   - component: {fileID: 140984727}
   - component: {fileID: 140984726}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Info - Desired End Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 158427610}
   - component: {fileID: 158427612}
   - component: {fileID: 158427611}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel - Parameters Infos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 204998886}
   - component: {fileID: 204998885}
   - component: {fileID: 204998884}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button - GridParameter - Save&Begin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -528.7}
+  m_AnchoredPosition: {x: 207, y: -652.5}
   m_SizeDelta: {x: 225.59, y: 71.1}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &204998884
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 308665738}
   - component: {fileID: 308665740}
   - component: {fileID: 308665739}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,7 +727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 309379029}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +917,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363427390}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 420543337}
   - component: {fileID: 420543339}
   - component: {fileID: 420543338}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1104,7 +1104,7 @@ RectTransform:
   m_Father: {fileID: 309379029}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 439888672}
   - component: {fileID: 439888674}
   - component: {fileID: 439888673}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel - Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1236,7 +1236,7 @@ GameObject:
   - component: {fileID: 471054057}
   - component: {fileID: 471054059}
   - component: {fileID: 471054058}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1309,7 +1309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477031052}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ----UI----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1344,7 +1344,7 @@ GameObject:
   - component: {fileID: 496723023}
   - component: {fileID: 496723025}
   - component: {fileID: 496723024}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Change Parameters button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1481,7 +1481,7 @@ GameObject:
   - component: {fileID: 536394697}
   - component: {fileID: 536394699}
   - component: {fileID: 536394698}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - STEP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1619,7 +1619,7 @@ GameObject:
   - component: {fileID: 585672560}
   - component: {fileID: 585672559}
   - component: {fileID: 585672558}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button - Reset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1749,7 +1749,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 586492249}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text - Step Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1821,7 +1821,7 @@ GameObject:
   - component: {fileID: 636080326}
   - component: {fileID: 636080328}
   - component: {fileID: 636080327}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Info - GridSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1959,7 +1959,7 @@ GameObject:
   - component: {fileID: 654110092}
   - component: {fileID: 654110094}
   - component: {fileID: 654110093}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Start/Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2143,7 +2143,7 @@ GameObject:
   - component: {fileID: 813266012}
   - component: {fileID: 813266014}
   - component: {fileID: 813266013}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Info - GridSize - Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2282,7 +2282,10 @@ GameObject:
   - component: {fileID: 817462275}
   - component: {fileID: 817462277}
   - component: {fileID: 817462276}
-  m_Layer: 0
+  - component: {fileID: 817462278}
+  - component: {fileID: 817462279}
+  - component: {fileID: 817462280}
+  m_Layer: 5
   m_Name: Panel - GridParameter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2301,6 +2304,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 903822204}
+  - {fileID: 1283870037}
   - {fileID: 1611172647}
   - {fileID: 1670970446}
   - {fileID: 2090974065}
@@ -2324,19 +2329,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.6933962, g: 0.86641437, b: 1, a: 0.392}
+  m_Material: {fileID: 1154523899}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.22745098}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 2ac75b5baa52eee4e976582857f6f680, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -2350,6 +2355,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817462274}
   m_CullTransparentMesh: 1
+--- !u!225 &817462278
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817462274}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &817462279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817462274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 15.81, y: -12.48}
+  m_UseGraphicAlpha: 1
+--- !u!114 &817462280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817462274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109c41f08973846429af681aea0a30c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithIndependentRoundedCorners
+  r: {x: 0, y: 40, z: 40, w: 0}
+  rect2props: {x: -19.999939, y: -0.000061035156, z: 601.4509, w: 601.4509}
+  image: {fileID: 817462276}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,7 +2455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 841908297}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2435,6 +2482,140 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!21 &867817683
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/IndependentRoundedCorners
+  m_Shader: {fileID: 4800000, guid: d3beb88e61f88ca4393acdefb005fa70, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _halfSize: {r: 263.4, g: 50, b: 0, a: 0}
+    - _r: {r: 0, g: 30, b: 30, a: 0}
+    - _rect2props: {r: -14.9999695, g: 0, b: 211.00067, a: 211.00067}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!1 &903822203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903822204}
+  - component: {fileID: 903822207}
+  - component: {fileID: 903822206}
+  - component: {fileID: 903822205}
+  m_Layer: 5
+  m_Name: Image - Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &903822204
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903822203}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 817462275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 643.4, y: 1044.8}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &903822205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903822203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109c41f08973846429af681aea0a30c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithIndependentRoundedCorners
+  r: {x: 0, y: 25, z: 25, w: 0}
+  rect2props: {x: -12.4999695, y: -0.000061035156, z: 588.0301, w: 588.0301}
+  image: {fileID: 903822206}
+--- !u!114 &903822206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903822203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 975052673}
+  m_Color: {r: 1, g: 0.29164252, b: 0, a: 0.20392157}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2ac75b5baa52eee4e976582857f6f680, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &903822207
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903822203}
+  m_CullTransparentMesh: 1
 --- !u!1 &922285262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,7 +2627,7 @@ GameObject:
   - component: {fileID: 922285263}
   - component: {fileID: 922285265}
   - component: {fileID: 922285264}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Slider GridSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2581,7 +2762,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 973671777}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2598,7 +2779,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1192617820}
   m_Father: {fileID: 2090974065}
@@ -2608,6 +2789,49 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!21 &975052673
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/IndependentRoundedCorners
+  m_Shader: {fileID: 4800000, guid: d3beb88e61f88ca4393acdefb005fa70, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _halfSize: {r: 321.7, g: 522.4, b: 0, a: 0}
+    - _r: {r: 0, g: 25, b: 25, a: 0}
+    - _rect2props: {r: -12.4999695, g: -0.000061035156, b: 588.0301, a: 588.0301}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &998787544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,7 +2841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 998787545}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2655,7 +2879,7 @@ GameObject:
   - component: {fileID: 1007867074}
   - component: {fileID: 1007867076}
   - component: {fileID: 1007867075}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - DesiredEndStep - VALUE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2792,7 +3016,7 @@ GameObject:
   - component: {fileID: 1015376806}
   - component: {fileID: 1015376808}
   - component: {fileID: 1015376807}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Reset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2931,7 +3155,7 @@ GameObject:
   - component: {fileID: 1029602630}
   - component: {fileID: 1029602632}
   - component: {fileID: 1029602631}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3006,7 +3230,7 @@ GameObject:
   - component: {fileID: 1079629445}
   - component: {fileID: 1079629447}
   - component: {fileID: 1079629446}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3028,7 +3252,7 @@ RectTransform:
   m_Father: {fileID: 841908297}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3082,13 +3306,14 @@ GameObject:
   - component: {fileID: 1096716282}
   - component: {fileID: 1096716281}
   - component: {fileID: 1096716280}
-  m_Layer: 0
+  - component: {fileID: 1096716283}
+  m_Layer: 5
   m_Name: Canvas - GameDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1096716279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3173,6 +3398,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1096716283
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096716278}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1107860239
 GameObject:
   m_ObjectHideFlags: 0
@@ -3184,7 +3421,7 @@ GameObject:
   - component: {fileID: 1107860240}
   - component: {fileID: 1107860242}
   - component: {fileID: 1107860241}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3200,15 +3437,15 @@ RectTransform:
   m_GameObject: {fileID: 1107860239}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.6, y: 3.6, z: 3.6}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 363427390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 6.5}
+  m_SizeDelta: {x: 25.9, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1107860241
 MonoBehaviour:
@@ -3230,7 +3467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: aa9d7d7009f92d64e88ff14a8bcc60f6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3293,8 +3530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae65c787661a9549afeb0b67b5e0fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
-  minPitch: -80
-  maxPitch: 80
   _camPivot: {fileID: 1861022200}
 --- !u!114 &1146371225
 MonoBehaviour:
@@ -3374,6 +3609,49 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!21 &1154523899
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/IndependentRoundedCorners
+  m_Shader: {fileID: 4800000, guid: d3beb88e61f88ca4393acdefb005fa70, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
+    - _halfSize: {r: 330.58, g: 540, b: 0, a: 0}
+    - _r: {r: 0, g: 40, b: 40, a: 0}
+    - _rect2props: {r: -19.999939, g: -0.000061035156, b: 601.4509, a: 601.4509}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1192617819
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,7 +3663,7 @@ GameObject:
   - component: {fileID: 1192617820}
   - component: {fileID: 1192617822}
   - component: {fileID: 1192617821}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3402,7 +3680,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 973671777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3460,7 +3738,7 @@ GameObject:
   - component: {fileID: 1244105431}
   - component: {fileID: 1244105433}
   - component: {fileID: 1244105432}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3535,7 +3813,7 @@ GameObject:
   - component: {fileID: 1261326755}
   - component: {fileID: 1261326757}
   - component: {fileID: 1261326756}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Info - Desired End Step - Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3674,7 +3952,7 @@ GameObject:
   - component: {fileID: 1276743043}
   - component: {fileID: 1276743045}
   - component: {fileID: 1276743044}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Slider GridSize - VALUE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3800,6 +4078,97 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276743042}
   m_CullTransparentMesh: 1
+--- !u!1 &1283870036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1283870037}
+  - component: {fileID: 1283870040}
+  - component: {fileID: 1283870039}
+  - component: {fileID: 1283870041}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1283870037
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283870036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 817462275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -156.3}
+  m_SizeDelta: {x: 526.8, y: 100}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1283870039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283870036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 867817683}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2ac75b5baa52eee4e976582857f6f680, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1283870040
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283870036}
+  m_CullTransparentMesh: 1
+--- !u!114 &1283870041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283870036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109c41f08973846429af681aea0a30c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithIndependentRoundedCorners
+  r: {x: 0, y: 30, z: 30, w: 0}
+  rect2props: {x: -14.9999695, y: 0, z: 211.00067, w: 211.00067}
+  image: {fileID: 1283870039}
 --- !u!1 &1409834649
 GameObject:
   m_ObjectHideFlags: 0
@@ -3845,7 +4214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433433a08dea3b14f840ec556c022fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpCameraPivot
-  _pivotPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1517902306
 GameObject:
   m_ObjectHideFlags: 0
@@ -3856,7 +4224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1517902307}
   - component: {fileID: 1517902308}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider - Game Speed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3948,7 +4316,7 @@ GameObject:
   - component: {fileID: 1611172647}
   - component: {fileID: 1611172649}
   - component: {fileID: 1611172648}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Title - GridParameter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3971,7 +4339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -100}
+  m_AnchoredPosition: {x: 70, y: -132.4}
   m_SizeDelta: {x: 389.78, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1611172648
@@ -3996,15 +4364,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: GRID PARAMETERS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 337cf51fca5f52d46892e2063fe16310, type: 2}
+  m_sharedMaterial: {fileID: -1182360666454325331, guid: 337cf51fca5f52d46892e2063fe16310, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 3223345919
+  m_fontColor: {r: 1, g: 0.35337138, b: 0.1273585, a: 0.7529412}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4163,7 +4531,7 @@ GameObject:
   - component: {fileID: 1645829036}
   - component: {fileID: 1645829038}
   - component: {fileID: 1645829037}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4179,8 +4547,8 @@ RectTransform:
   m_GameObject: {fileID: 1645829035}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5.4, y: 5.4, z: 5.4}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 43882236}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4209,7 +4577,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: aa9d7d7009f92d64e88ff14a8bcc60f6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4237,7 +4605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1670970446}
   - component: {fileID: 1670970447}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider - GridParameter - GridSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4265,8 +4633,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -210}
-  m_SizeDelta: {x: 220, y: 20}
+  m_AnchoredPosition: {x: 70, y: -311.01}
+  m_SizeDelta: {x: 240.29, y: 41}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1670970447
 MonoBehaviour:
@@ -4469,7 +4837,7 @@ GameObject:
   - component: {fileID: 1761536347}
   - component: {fileID: 1761536349}
   - component: {fileID: 1761536348}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - ButtonSave&Begin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4607,7 +4975,7 @@ GameObject:
   - component: {fileID: 1822484004}
   - component: {fileID: 1822484003}
   - component: {fileID: 1822484002}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas - GridParameter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4797,6 +5165,9 @@ MonoBehaviour:
   desiredEndStepSlider: {fileID: 2090974066}
   gridSizeSliderValue: {fileID: 1276743044}
   desiredEndStepSliderValue: {fileID: 1007867075}
+  _canvasGridParametersPanel: {fileID: 817462278}
+  _canvasGameDisplay: {fileID: 1096716283}
+  _rectTransfGridParametersPanel: {fileID: 817462275}
 --- !u!1 &1920331045
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,7 +5255,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 0.5188679, g: 0.38739234, b: 0.3255162, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4937,7 +5308,7 @@ GameObject:
   - component: {fileID: 1950674810}
   - component: {fileID: 1950674809}
   - component: {fileID: 1950674808}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button - Start/Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5069,7 +5440,7 @@ GameObject:
   - component: {fileID: 1953819555}
   - component: {fileID: 1953819557}
   - component: {fileID: 1953819556}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) - Step Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5209,7 +5580,7 @@ GameObject:
   - component: {fileID: 2038769343}
   - component: {fileID: 2038769342}
   - component: {fileID: 2038769341}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button - Change Parameters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5341,7 +5712,7 @@ GameObject:
   - component: {fileID: 2059729016}
   - component: {fileID: 2059729018}
   - component: {fileID: 2059729017}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5477,7 +5848,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090974065}
   - component: {fileID: 2090974066}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider - GridParameter - Desired End Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5494,7 +5865,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 308665738}
   - {fileID: 973671777}
@@ -5505,7 +5876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 70, y: -372.33}
+  m_AnchoredPosition: {x: 70, y: -472.2}
   m_SizeDelta: {x: 226, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2090974066

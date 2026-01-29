@@ -2,6 +2,7 @@ using TMPro;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider desiredEndStepSlider;
     [SerializeField] private TextMeshProUGUI gridSizeSliderValue;
     [SerializeField] private TextMeshProUGUI desiredEndStepSliderValue;
+    [SerializeField] private CanvasGroup _canvasGridParametersPanel;
+    [SerializeField] private CanvasGroup _canvasGameDisplay;
+    [SerializeField] private RectTransform _rectTransfGridParametersPanel;
     #endregion
 
     #region ----CANVAS GRID PARAMETER - LITHENERS----
@@ -61,9 +65,8 @@ public class UIManager : MonoBehaviour
     {
         int gridSize = (int)gridSizeSlider.value;
         int desiredEndStep = (int)desiredEndStepSlider.value;
-        gameDisplayCanvas.gameObject.SetActive(true);
-        gridParameterCanvas.gameObject.SetActive(false);
-
+        ActivateCanvasGameDisplay(true);
+        ActivateCanvasGridParameters(false);
         GameManager.Instance.SaveGridParametersValueAndBegin(gridSize, desiredEndStep);
     }
 
@@ -85,8 +88,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickOnChangeParameters()
     {
-        gameDisplayCanvas.gameObject.SetActive(false);
-        gridParameterCanvas.gameObject.SetActive(true);
+        ActivateCanvasGameDisplay(false);
+        ActivateCanvasGridParameters(true);
         GameManager.Instance.ResetGame();
         GridManager.Instance.DeleteGrid();
     }
@@ -139,39 +142,106 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    private void Start()
+    #region ----DOTween Methods----
+    private void SlideOnXAxis_PanelGridParameters(float targetPos, float time)
     {
-        gridSizeSlider.onValueChanged.AddListener(UpdateGridSizeSliderTextValue);
-        desiredEndStepSlider.onValueChanged.AddListener(UpdateDesiredEndStepSliderTextValue);
-        gridSizeSliderValue.text = gridSizeSlider.value.ToString();
-        desiredEndStepSliderValue.text = desiredEndStepSlider.value.ToString();
+        _rectTransfGridParametersPanel.DOAnchorPosX(targetPos, time).SetEase(Ease.OutCubic);
+    }
+    private void FadeInOrOut_PanelGridParameters(bool isFadeIn)
+    {
+        _canvasGridParametersPanel.DOKill();
 
-        gameSpeedSlider.onValueChanged.AddListener(UpdateSpeedGame);
-
-        if (SaveParametersManager.DoesSaveFileAlreadyExists())
+        if (isFadeIn)
         {
-            gameDisplayCanvas.gameObject.SetActive(true);
-            gridParameterCanvas.gameObject.SetActive(false);
-
-            GameManager.Instance.ChargeGridParameterValuesAndBegin();
+            _canvasGridParametersPanel.interactable = true;
+            _canvasGridParametersPanel.blocksRaycasts = true;
+            _canvasGridParametersPanel.DOFade(1f, 0.25f);
         }
         else
         {
-            gameDisplayCanvas.gameObject.SetActive(false);
-            gridParameterCanvas.gameObject.SetActive(true);
+            _canvasGridParametersPanel.DOFade(0f, 0.25f)
+                          .OnComplete(() =>
+                          {
+                              _canvasGridParametersPanel.interactable = false;
+                              _canvasGridParametersPanel.blocksRaycasts = false;
+                          });
         }
     }
+    private void FadeInOrOut_PanelGameDisplay(bool isFadeIn)
+    {
+        _canvasGameDisplay.DOKill();
+
+        if (isFadeIn)
+        {
+            _canvasGameDisplay.interactable = true;
+            _canvasGameDisplay.blocksRaycasts = true;
+            _canvasGameDisplay.DOFade(1f, 0.25f);
+        }
+        else
+        {
+            _canvasGameDisplay.DOFade(0f, 0.25f)
+                          .OnComplete(() =>
+                          {
+                              _canvasGameDisplay.interactable = false;
+                              _canvasGameDisplay.blocksRaycasts = false;
+                          });
+        }
+    }
+    #endregion
 
     /// <summary>
     /// Method referenced in the inspector of "----UI---- > Canvas-GridParameter>Panel > Slider-GridParameter-GridSize", in the "On Value Changed" field. 'Dynamic float'.
     /// Gets called everytime user change the 'Grid Size' slider value.
-    /// 
     /// </summary>
-    /// <param name="value">Float value of the Slider</param>
+    /// <param name="value"> Float value of the Slider </param>
     public void OnGridSizeValueChanged(float value)
     {
         int intValue = (int)value;
         GridManager.Instance.DeleteGrid();
         GridManager.Instance.InitializeGridManager(intValue);
     }
+    public void ActivateCanvasGridParameters(bool activate)
+    {
+        if (activate)
+        {
+            SlideOnXAxis_PanelGridParameters(0f, 0.3f);
+            FadeInOrOut_PanelGridParameters(true);
+        }
+        else
+        {
+            SlideOnXAxis_PanelGridParameters(-700f, 0.3f);
+            FadeInOrOut_PanelGridParameters(false);
+        }
+
+    }
+    public void ActivateCanvasGameDisplay(bool activate)
+    {
+        if (activate)
+            FadeInOrOut_PanelGameDisplay(true);
+        else
+            FadeInOrOut_PanelGameDisplay(false);
+    }
+
+    private void Start()
+    {
+        gridSizeSlider.onValueChanged.AddListener(UpdateGridSizeSliderTextValue);
+        desiredEndStepSlider.onValueChanged.AddListener(UpdateDesiredEndStepSliderTextValue);
+        gridSizeSliderValue.text = gridSizeSlider.value.ToString();
+        desiredEndStepSliderValue.text = desiredEndStepSlider.value.ToString();
+        gameSpeedSlider.onValueChanged.AddListener(UpdateSpeedGame);
+
+        if (SaveParametersManager.DoesSaveFileAlreadyExists())
+        {
+            ActivateCanvasGameDisplay(true);
+            ActivateCanvasGridParameters(false);
+
+            GameManager.Instance.ChargeGridParameterValuesAndBegin();
+        }
+        else
+        {
+            ActivateCanvasGameDisplay(false);
+            ActivateCanvasGridParameters(true);
+        }
+    }
+
 }

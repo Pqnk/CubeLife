@@ -6,16 +6,14 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private Camera _mainCamera;
-
     private CellBehavior _cellClicked;
-
     private bool rightClicking;
     private Vector2 lookDelta;
     private float sensitivity = 0.1f;
-    [SerializeField] private float minPitch = -80f;
-    [SerializeField] private float maxPitch = 80f;
-    private float yaw;   // axe Y
-    private float pitch; // axe X
+    private float minPitch = -80f;
+    private float maxPitch = 80f;
+    private float yaw;  
+    private float pitch;
     private Vector2 clickStartPos;
     private Vector2 currentMousePos;
 

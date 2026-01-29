@@ -4,7 +4,7 @@ using UnityEngine;
 public static class SaveParametersManager
 {
     /// <summary>
-    /// Property for the path of the save file
+    /// Property for the path of the save file.
     /// </summary>
     private static string SaveDataPath
     {
@@ -15,7 +15,7 @@ public static class SaveParametersManager
     }
 
     /// <summary>
-    /// Methode to create file and save parameters of the Grid
+    /// Method to create a file and save parameters of the Grid in it.
     /// </summary>
     public static void SaveGridParameters()
     {
@@ -30,7 +30,8 @@ public static class SaveParametersManager
     }
 
     /// <summary>
-    /// Method to get the datas from the save file - class SaveDataGridParameters
+    /// Method to get the datas from the save file.
+    /// Datas are saved from the class SaveDataGridParameters.
     /// </summary>
     /// <returns>SaveDataGridParameters</returns>
     public static SaveDataGridParameters ChargeSavedGridParametersFile()
@@ -47,7 +48,7 @@ public static class SaveParametersManager
     }
 
     /// <summary>
-    /// Methode to get if a Savefie already exists
+    /// Method to get if a save file already exists.
     /// </summary>
     /// <returns>bool</returns>
     public static bool DoesSaveFileAlreadyExists()
