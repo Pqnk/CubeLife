@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource _backgroundMusic;
 
     [Space]
-    [Header("---- UI ----")]
+    [Header("---- UI AUDIO ----")]
     [Header("UI - Clicks")]
     [SerializeField] private float _uiSoundVolume = 0.4f;
     [SerializeField] private AudioClip _uiClick01;
@@ -25,7 +25,8 @@ public class AudioManager : MonoBehaviour
     public void PlayUISound(UISoundType soundType)
     {
         GameObject soundCaster = new GameObject();
-        soundCaster.name = "---- UI SOUND ----";
+        soundCaster.name = "---- UI SOUND : {0} ----";
+        soundCaster.name = string.Format(soundCaster.name, soundType);
         soundCaster.transform.SetParent(transform, false);
         AudioSource soundCasterAudioSource = soundCaster.AddComponent<AudioSource>();
         soundCasterAudioSource.playOnAwake = false;
@@ -48,7 +49,6 @@ public class AudioManager : MonoBehaviour
                 clipSound = _uiClick03;
                 break;
         }
-
         soundCasterAudioSource.clip = clipSound;
         soundCasterAudioSource.Play();
         StartCoroutine(DestroyWhenSoundFinishedp(soundCasterAudioSource));
