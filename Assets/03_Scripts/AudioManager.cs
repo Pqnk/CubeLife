@@ -5,7 +5,8 @@ public enum UISoundType
 {
     Click01,
     Click02,
-    Click03
+    Click03,
+    Click04
 }
 
 
@@ -21,6 +22,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _uiClick01;
     [SerializeField] private AudioClip _uiClick02;
     [SerializeField] private AudioClip _uiClick03;
+    [SerializeField] private AudioClip _uiClick04;
 
     public void PlayUISound(UISoundType soundType)
     {
@@ -47,6 +49,10 @@ public class AudioManager : MonoBehaviour
 
             case UISoundType.Click03:
                 clipSound = _uiClick03;
+                break;
+
+            case UISoundType.Click04:
+                clipSound = _uiClick04;
                 break;
         }
         soundCasterAudioSource.clip = clipSound;

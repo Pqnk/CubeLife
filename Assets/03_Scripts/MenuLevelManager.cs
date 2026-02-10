@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MenuLevelManager : MonoBehaviour
 {
-    #region ----- SINGLETON -----
+    #region ########## SINGLETON - MENU LEVEL MANAGER ###########
     public static MenuLevelManager Instance { get; private set; }
 
     private void Awake()
@@ -18,13 +18,9 @@ public class MenuLevelManager : MonoBehaviour
 
     #endregion
 
-    [Header("InputManager")]
-    [SerializeField] public InputManagerMenuLevel inputManagerMenuLevel;
+    [Header("---- Menu Level - INPUT MANAGER ----")]
+    public InputManagerMenuLevel inputManagerMenuLevel;
 
-    [Header("UI Manager")]
-    [SerializeField] public UIManagerMenuLevel uiManagerMenuLevel;
-
-    [Header("AudioManager")]
-    [SerializeField] public AudioManager audioManager;
-
+    [Header("---- Menu Level - UI MANAGER ----")]
+    public UIManagerMenuLevel uiManagerMenuLevel;
 }

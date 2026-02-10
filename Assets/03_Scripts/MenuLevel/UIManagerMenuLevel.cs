@@ -117,7 +117,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ########## PRESS ANY KEY TEXT ###########
     private IEnumerator PingPongAlphaTextPressButton()
     {
-        while (!MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed)
+        while (!CubeLyfeManager.Instance.menuLevelManager.inputManagerMenuLevel.hasAnyInputBeenPushed)
         {
             float alpha = Mathf.PingPong(Time.time * _speedAlphaText, 1f);
             _pressAnyKeyText.alpha = alpha;
@@ -147,7 +147,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ########## LOGO ##########
     private IEnumerator PingPongScaleLogo()
     {
-        while (!MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed)
+        while (!CubeLyfeManager.Instance.menuLevelManager.inputManagerMenuLevel.hasAnyInputBeenPushed)
         {
             float alpha = Mathf.PingPong(Time.time * _speedScaleLogo, 1f);
             float scaleValue = Mathf.Lerp(_minScaleLogo, _maxScaleLogo, alpha);
@@ -193,19 +193,19 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ######### BUTTONS MENU ##########
     public void OnClickButton_Play()
     {
-        Debug.Log("Play !");
+        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         EventSystem.current.SetSelectedGameObject(null);
         ToggleInteractableButtons(false);
     }
     public void OnClickButton_Settings()
     {
-        Debug.Log("Settings !");
+        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         EventSystem.current.SetSelectedGameObject(null);
         ToggleInteractableButtons(false);
     }
     public void OnClickButton_Quit()
     {
-        Debug.Log("Quit !");
+        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         EventSystem.current.SetSelectedGameObject(null);
         ToggleInteractableButtons(false);
         Application.Quit();

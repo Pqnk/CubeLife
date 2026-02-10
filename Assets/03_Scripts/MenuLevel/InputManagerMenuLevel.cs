@@ -16,7 +16,7 @@ public class InputManagerMenuLevel : MonoBehaviour
         {
             if (Time.time > 1.5f)
             {
-                MenuLevelManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+                CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
                 hasAnyInputBeenPushed = true;
                 OnAnyInput?.Invoke();
             }
