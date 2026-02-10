@@ -19,7 +19,7 @@ Shader "Custom/NewUnlitUniversalRenderPipelineShader"
 
         Cull Off
         ZWrite Off
-        ZTest Always
+        ZTest LEqual
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
