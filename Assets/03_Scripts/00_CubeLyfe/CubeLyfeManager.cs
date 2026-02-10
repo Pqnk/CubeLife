@@ -18,16 +18,15 @@ public class CubeLyfeManager : MonoBehaviour
 
     #endregion
 
-
-    [Header("##### LEVEL MANAGERS #####")]
-    [Header("Menu Level Manager")]
-    public MenuLevelManager menuLevelManager;
-    [Header("Game Of Life Level Manager")]
-    public GameManager mainLevelManager;
+    [Space]
+    [Header("##### LEVEL MANAGER #####")]
+    [Header("Level Manager")]
+    public LevelManager levelManager;
 
     [Space]
     [Header("##### AUDIO MANAGERS #####")]
     [Header("Audio Manager")]
-    [SerializeField] public AudioManager audioManager;
+    public AudioManager audioManager;
+
 
 }

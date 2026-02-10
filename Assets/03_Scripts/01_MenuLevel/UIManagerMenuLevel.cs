@@ -117,7 +117,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ########## PRESS ANY KEY TEXT ###########
     private IEnumerator PingPongAlphaTextPressButton()
     {
-        while (!CubeLyfeManager.Instance.menuLevelManager.inputManagerMenuLevel.hasAnyInputBeenPushed)
+        while (!MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed)
         {
             float alpha = Mathf.PingPong(Time.time * _speedAlphaText, 1f);
             _pressAnyKeyText.alpha = alpha;
@@ -147,7 +147,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ########## LOGO ##########
     private IEnumerator PingPongScaleLogo()
     {
-        while (!CubeLyfeManager.Instance.menuLevelManager.inputManagerMenuLevel.hasAnyInputBeenPushed)
+        while (!MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed)
         {
             float alpha = Mathf.PingPong(Time.time * _speedScaleLogo, 1f);
             float scaleValue = Mathf.Lerp(_minScaleLogo, _maxScaleLogo, alpha);
@@ -196,6 +196,8 @@ public class UIManagerMenuLevel : MonoBehaviour
         CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         EventSystem.current.SetSelectedGameObject(null);
         ToggleInteractableButtons(false);
+
+        CubeLyfeManager.Instance.levelManager.LoadLevel(CubeLyfeLevels.L_01_GameOfLifeLevel);
     }
     public void OnClickButton_Settings()
     {
