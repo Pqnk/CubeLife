@@ -51,8 +51,6 @@ public class UIManagerMenuLevel : MonoBehaviour
         //  Initializing buttons appearance - Invisible and not able to interact
         foreach (Button button in _buttonsMenuArray)
         {
-            //Debug.Log($"Mon bouton : {button.transform.name}" );
-
             Image buttonImage = button.GetComponent<Image>();
             TMP_Text buttonText = button.transform.GetChild(0).GetComponent<TMP_Text>();
             Color alphaZeroWhite = new Color(1, 1, 1, 0); // White transparent
@@ -61,7 +59,6 @@ public class UIManagerMenuLevel : MonoBehaviour
 
             // Cannot Interact with buttons and buttons invisibles (Image and Text)
             button.interactable = false;
-            buttonImage.raycastTarget = false;
             buttonImage.color = alphaZeroWhite;
             buttonText.color = alphaZeroPurple;
 
@@ -74,7 +71,10 @@ public class UIManagerMenuLevel : MonoBehaviour
         StartCoroutine(PingPongAlphaTextPressButton());
         StartCoroutine(PingPongGradientBackground());
         StartCoroutine(PingPongScaleLogo());
-        StartCoroutine(Appearing_Logo());
+
+        Logo_FadeIn();
+
+
     }
 
 
@@ -90,8 +90,8 @@ public class UIManagerMenuLevel : MonoBehaviour
     void ChangeUIDisplayWhenAnyKeyPressed()
     {
         StartCoroutine(FadeOutTextPressAnyKey());
-        StartCoroutine(PlaceLogoAtTheTop());
         StartCoroutine(Appearing_ButtonsMenu());
+        Logo_MoveToTheTop();
     }
     #endregion
 
@@ -157,35 +157,14 @@ public class UIManagerMenuLevel : MonoBehaviour
         }
 
     }
-    private IEnumerator PlaceLogoAtTheTop()
+    private void Logo_MoveToTheTop()
     {
-        float t = 0f;
-
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime;
-
-            float scaleValue = Mathf.Lerp(1.0f, 0.6f, t / 1.0f);
-            Vector3 newScale = new Vector3(scaleValue, scaleValue, scaleValue);
-            _logoRectT.localScale = newScale;
-
-            float y = Mathf.Lerp(78.0f, 330f, t / 1.0f);
-            _logoRectT.anchoredPosition = new Vector2(0f, y);
-
-            yield return null;
-        }
+        StartCoroutine(UIFunctionLibrary.MoveUIRectT(_logoRectT, new Vector2(0f,78f), new Vector2(0f, 330f)));
+        StartCoroutine(UIFunctionLibrary.ScaleUIRectT(_logoRectT, 1.0f, 0.6f));
     }
-    private IEnumerator Appearing_Logo()
+    private void Logo_FadeIn()
     {
-        float t = 0f;
-        Color color = Color.white;
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime;
-            color.a = Mathf.Lerp(0.0f, 1.0f, t / 1.0f);
-            _logoImage.color = color;
-            yield return null;
-        }
+        StartCoroutine(UIFunctionLibrary.LerpAlphaImage(_logoImage));
     }
     #endregion
 
@@ -193,25 +172,31 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ######### BUTTONS MENU ##########
     public void OnClickButton_Play()
     {
-        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         EventSystem.current.SetSelectedGameObject(null);
         ToggleInteractableButtons(false);
 
+        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         CubeLyfeManager.Instance.levelManager.LoadLevel(CubeLyfeLevels.L_01_GameOfLifeLevel);
+
+
     }
     public void OnClickButton_Settings()
     {
-        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         EventSystem.current.SetSelectedGameObject(null);
         ToggleInteractableButtons(false);
+
+        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
     }
     public void OnClickButton_Quit()
     {
-        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         EventSystem.current.SetSelectedGameObject(null);
         ToggleInteractableButtons(false);
+
+        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+
         Application.Quit();
     }
+
     private IEnumerator Appearing_ButtonsMenu()
     {
         int i = 0;
@@ -221,14 +206,16 @@ public class UIManagerMenuLevel : MonoBehaviour
             TMP_Text buttonText = _buttonsMenuTextsList[i];
 
             ToggleInteractableButtons(true, 1f);
-            buttonImage.raycastTarget = true;
 
-            StartCoroutine(FadeIn_ButtonsMenu(buttonImage, buttonText));
+            //StartCoroutine(FadeIn_ButtonsMenu(buttonImage, buttonText));
+            StartCoroutine(UIFunctionLibrary.LerpAlphaButtonTMPPro(button));
 
             i++;
             yield return new WaitForSeconds(0.2f);
         }
     }
+
+
     private IEnumerator FadeIn_ButtonsMenu(Image buttonImage, TMP_Text buttonText)
     {
         float t = 0f;
