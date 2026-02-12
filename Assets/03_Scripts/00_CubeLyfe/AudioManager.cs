@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
 {
     [Header("---- MUSIC ----")]
     [SerializeField] private AudioSource _backgroundMusic;
+    private float _backgroundMusicMaxVolume = 0.5f;
 
     [Space]
     [Header("---- UI AUDIO ----")]
@@ -23,6 +24,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _uiClick02;
     [SerializeField] private AudioClip _uiClick03;
     [SerializeField] private AudioClip _uiClick04;
+
+    private void Awake()
+    {
+        _backgroundMusicMaxVolume = _backgroundMusic.volume;
+    }
+
 
     public void PlayUISound(UISoundType soundType)
     {
@@ -64,5 +71,19 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(source.clip.length);
         Destroy(source.gameObject);
+    }
+
+    private IEnumerator LowerMusicVolumeToZero()
+    {
+        while(_backgroundMusic.volume > 0f)
+        {
+            _backgroundMusic.volume = Mathf.MoveTowards(_backgroundMusic.volume, 0f, Time.deltaTime * 0.5f);
+            yield return null;
+        }
+    }
+
+    public void FadeAwayBackgroundMusic()
+    {
+        StartCoroutine(LowerMusicVolumeToZero());
     }
 }

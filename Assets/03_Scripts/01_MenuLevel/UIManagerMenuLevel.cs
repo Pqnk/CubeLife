@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -35,11 +33,16 @@ public class UIManagerMenuLevel : MonoBehaviour
     [SerializeField] private float _minScaleLogo = 0.90f;
     [SerializeField] private float _maxScaleLogo = 1.1f;
     private Image _logoImage;
+    private Vector2 _startPosLogo;
 
     [Space]
     [Header("Panels")]
     [SerializeField] private Button[] _buttonsMenuArray;
-    [SerializeField] private List<TMP_Text> _buttonsMenuTextsList;
+
+    [Space]
+    [Header("Loading Bar Cube-shaped")]
+    [SerializeField] private Image _loadingCubeBar;
+    [SerializeField] private TMP_Text _loadingText;
 
     #endregion
 
@@ -47,34 +50,38 @@ public class UIManagerMenuLevel : MonoBehaviour
     {
         //  Saving the Image component from the UI object containing the Logo
         _logoImage = _logoRectT.GetComponent<Image>();
+        _startPosLogo = new Vector2(_logoRectT.localPosition.x, _logoRectT.localPosition.y);
 
         //  Initializing buttons appearance - Invisible and not able to interact
         foreach (Button button in _buttonsMenuArray)
         {
             Image buttonImage = button.GetComponent<Image>();
             TMP_Text buttonText = button.transform.GetChild(0).GetComponent<TMP_Text>();
-            Color alphaZeroWhite = new Color(1, 1, 1, 0); // White transparent
-            Color alphaZeroPurple = buttonText.color;
-            alphaZeroPurple.a = 0;
+            Color alphaZeroWhite = new Color(1, 1, 1, 0);
+            Color alphaZeroColor = buttonText.color;
+            alphaZeroColor.a = 0;
 
             // Cannot Interact with buttons and buttons invisibles (Image and Text)
             button.interactable = false;
             buttonImage.color = alphaZeroWhite;
-            buttonText.color = alphaZeroPurple;
+            buttonText.color = alphaZeroColor;
 
-            _buttonsMenuTextsList.Add(buttonText);
+            //  Setting the loading bar to 0
+            _loadingCubeBar.fillAmount = 0f;
         }
     }
 
     private void Start()
     {
-        StartCoroutine(PingPongAlphaTextPressButton());
+        //  Starting the background gradient animation from Shader
         StartCoroutine(PingPongGradientBackground());
+
+        //  Starting the ping-pong effects on Logo and Text
+        StartCoroutine(PingPongAlphaTextPressButton());
         StartCoroutine(PingPongScaleLogo());
 
-        Logo_FadeIn();
-
-
+        //  Logo fades-in
+        FadeInorFadeOut_Logo(true);
     }
 
 
@@ -82,16 +89,18 @@ public class UIManagerMenuLevel : MonoBehaviour
     void OnEnable()
     {
         InputManagerMenuLevel.OnAnyInput += ChangeUIDisplayWhenAnyKeyPressed;
+        LevelManager.OnLoadingScene += ChangeValueLoadingBar;
     }
     void OnDisable()
     {
         InputManagerMenuLevel.OnAnyInput -= ChangeUIDisplayWhenAnyKeyPressed;
+        LevelManager.OnLoadingScene -= ChangeValueLoadingBar;
     }
     void ChangeUIDisplayWhenAnyKeyPressed()
     {
-        StartCoroutine(FadeOutTextPressAnyKey());
-        StartCoroutine(Appearing_ButtonsMenu());
-        Logo_MoveToTheTop();
+        StartCoroutine(FadeInorFadeOut_Buttons(true, 1.0f, 0.2f));
+        FadeOutAndMoveTextWhenAnyKeyPressed();
+        MoveAndScaleToTheTopScreen_Logo();
     }
     #endregion
 
@@ -114,7 +123,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #endregion
 
 
-    #region ########## PRESS ANY KEY TEXT ###########
+    #region ########## TEXT - PRESS ANY KEY ###########
     private IEnumerator PingPongAlphaTextPressButton()
     {
         while (!MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed)
@@ -124,22 +133,13 @@ public class UIManagerMenuLevel : MonoBehaviour
             yield return null;
         }
     }
-    private IEnumerator FadeOutTextPressAnyKey()
+    private void FadeOutAndMoveTextWhenAnyKeyPressed()
     {
-        float t = 0f;
+        StartCoroutine(UIFunctionLibrary.LerpAlphaTMPPro(_pressAnyKeyText, 1f, 0f));
 
-        while (t < 1.0f)
-        {
-            t += Time.deltaTime;
-            _pressAnyKeyText.alpha = Mathf.Lerp(1f, 0f, t / 1.0f);
-
-            float y = Mathf.Lerp(215f, 100f, t / 1.0f);
-            _pressAnyKeyText.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, y);
-
-            yield return null;
-        }
-
-        _pressAnyKeyText.alpha = 0f;
+        Vector2 startPos = new Vector2(0f, 215f);
+        Vector2 endPos = new Vector2(0f, 100f);
+        StartCoroutine(UIFunctionLibrary.MoveUIRectT(_pressAnyKeyText.transform.GetComponent<RectTransform>(), startPos, endPos));
     }
     #endregion
 
@@ -157,14 +157,16 @@ public class UIManagerMenuLevel : MonoBehaviour
         }
 
     }
-    private void Logo_MoveToTheTop()
+    private void MoveAndScaleToTheTopScreen_Logo()
     {
-        StartCoroutine(UIFunctionLibrary.MoveUIRectT(_logoRectT, new Vector2(0f,78f), new Vector2(0f, 330f)));
+        StartCoroutine(UIFunctionLibrary.MoveUIRectT(_logoRectT, new Vector2(0f, 78f), new Vector2(0f, 330f)));
         StartCoroutine(UIFunctionLibrary.ScaleUIRectT(_logoRectT, 1.0f, 0.6f));
     }
-    private void Logo_FadeIn()
+    private void FadeInorFadeOut_Logo(bool isFadeIn, float fadeDuration = 1f)
     {
-        StartCoroutine(UIFunctionLibrary.LerpAlphaImage(_logoImage));
+        float startValue = isFadeIn ? 0f : 1f;
+        float endValue = isFadeIn ? 1f : 0f;
+        StartCoroutine(UIFunctionLibrary.LerpAlphaImage(_logoImage, startValue, endValue, fadeDuration));
     }
     #endregion
 
@@ -173,95 +175,65 @@ public class UIManagerMenuLevel : MonoBehaviour
     public void OnClickButton_Play()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        ToggleInteractableButtons(false);
 
         CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
-        CubeLyfeManager.Instance.levelManager.LoadLevel(CubeLyfeLevels.L_01_GameOfLifeLevel);
+        CubeLyfeManager.Instance.audioManager.FadeAwayBackgroundMusic();
+
+        StartCoroutine(FadeInorFadeOut_Buttons(false, 0.3f, 0.1f));
+        FadeIn_LoadingBar(true);
+        StartCoroutine(UIFunctionLibrary.LerpAlphaTMPPro(_loadingText, 0f, 1f));
+
+        Vector2 currentPosLogo = new Vector2(_logoRectT.localPosition.x, _logoRectT.localPosition.y);
+        StartCoroutine(UIFunctionLibrary.MoveUIRectT(_logoRectT, currentPosLogo, _startPosLogo));
 
 
+        StartCoroutine(CubeLyfeManager.Instance.levelManager.LoadLevelAsync(CubeLyfeLevels.L_01_GameOfLifeLevel));
     }
     public void OnClickButton_Settings()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        ToggleInteractableButtons(false);
-
         CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+        StartCoroutine(FadeInorFadeOut_Buttons(false, 0.3f, 0.1f));
     }
     public void OnClickButton_Quit()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        ToggleInteractableButtons(false);
-
         CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
 
         Application.Quit();
     }
 
-    private IEnumerator Appearing_ButtonsMenu()
+    private IEnumerator FadeInorFadeOut_Buttons(bool isFadeIn, float fadeDuration = 1f, float delayBetweenButtons = 0.2f)
     {
-        int i = 0;
-        foreach (Button button in _buttonsMenuArray)
+        float startValue = isFadeIn ? 0f : 1f;
+        float endValue = isFadeIn ? 1f : 0f;
+        
+        foreach(Button button in _buttonsMenuArray)
         {
-            Image buttonImage = button.GetComponent<Image>();
-            TMP_Text buttonText = _buttonsMenuTextsList[i];
-
-            ToggleInteractableButtons(true, 1f);
-
-            //StartCoroutine(FadeIn_ButtonsMenu(buttonImage, buttonText));
-            StartCoroutine(UIFunctionLibrary.LerpAlphaButtonTMPPro(button));
-
-            i++;
-            yield return new WaitForSeconds(0.2f);
+            button.interactable = false;
         }
-    }
-
-
-    private IEnumerator FadeIn_ButtonsMenu(Image buttonImage, TMP_Text buttonText)
-    {
-        float t = 0f;
-        float duration = 1f;
-
-        Color buttonImageOldColor = buttonImage.color;
-        Color buttonTextOldColor = buttonText.color;
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-
-            float a = Mathf.Lerp(0f, 1f, t / duration);
-
-            buttonImageOldColor.a = a;
-            buttonTextOldColor.a = a;
-
-            buttonImage.color = buttonImageOldColor;
-            buttonText.color = buttonTextOldColor;
-
-            yield return null;
-
-        }
-
-
-    }
-    private void ToggleInteractableButtons(bool activation)
-    {
-        foreach (Button button in _buttonsMenuArray)
-        {
-            button.interactable = activation;
-        }
-    }
-    private void ToggleInteractableButtons(bool activation, float delay = 0f)
-    {
-        StartCoroutine(ToggleInteactableButtonDelayed(activation, delay));
-    }
-    private IEnumerator ToggleInteactableButtonDelayed(bool activation, float delay)
-    {
-        if (delay > 0f)
-            yield return new WaitForSeconds(delay);
 
         foreach (Button button in _buttonsMenuArray)
         {
-            button.interactable = activation;
+            StartCoroutine(UIFunctionLibrary.LerpAlphaButtonTMPPro(button, startValue, endValue, fadeDuration));
+            yield return new WaitForSeconds(delayBetweenButtons);
         }
     }
+
+    #endregion
+
+
+    #region ########## LOADING BAR CUBE-SHAPED ##########
+
+    private void ChangeValueLoadingBar(float loadingProgress)
+    {
+        StartCoroutine(UIFunctionLibrary.ProgressValueLoadingBarFromImage(_loadingCubeBar, loadingProgress));
+    }
+
+    private void FadeIn_LoadingBar(bool isFadeIn)
+    {
+        StartCoroutine(UIFunctionLibrary.LerpAlphaImage(_loadingCubeBar));
+    }
+
     #endregion
 }
