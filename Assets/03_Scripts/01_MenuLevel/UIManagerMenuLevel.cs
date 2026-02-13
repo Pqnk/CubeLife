@@ -23,15 +23,11 @@ public class UIManagerMenuLevel : MonoBehaviour
 
     [Space]
     [Header("Text -- Press Button")]
-    [SerializeField] private float _speedAlphaText = 0.75f;
     [SerializeField] private TMP_Text _pressAnyKeyText;
 
     [Space]
     [Header("Logo")]
     [SerializeField] private RectTransform _logoRectT;
-    [SerializeField] private float _speedScaleLogo = 0.9f;
-    [SerializeField] private float _minScaleLogo = 0.90f;
-    [SerializeField] private float _maxScaleLogo = 1.1f;
     private Image _logoImage;
     private Vector2 _startPosLogo;
 
@@ -43,6 +39,9 @@ public class UIManagerMenuLevel : MonoBehaviour
     [Header("Loading Bar Cube-shaped")]
     [SerializeField] private Image _loadingCubeBar;
     [SerializeField] private TMP_Text _loadingText;
+
+    private Coroutine _coroutinePingPongAlphaText = null;
+    private Coroutine _coroutinePingPongScaleLogo = null;
 
     #endregion
 
@@ -77,15 +76,15 @@ public class UIManagerMenuLevel : MonoBehaviour
         StartCoroutine(PingPongGradientBackground());
 
         //  Starting the ping-pong effects on Logo and Text
-        StartCoroutine(PingPongAlphaTextPressButton());
-        StartCoroutine(PingPongScaleLogo());
+        PingPongAlphaTextPressButton();
+        PingPongScaleLogo();
 
         //  Logo fades-in
         FadeInorFadeOut_Logo(true);
     }
 
 
-    #region ########## EVENT - ANY KEY PRESSED ###########
+    #region ########## EVENTS ###########
     void OnEnable()
     {
         InputManagerMenuLevel.OnAnyInput += ChangeUIDisplayWhenAnyKeyPressed;
@@ -98,6 +97,9 @@ public class UIManagerMenuLevel : MonoBehaviour
     }
     void ChangeUIDisplayWhenAnyKeyPressed()
     {
+        StopCoroutine(_coroutinePingPongAlphaText);
+        StopCoroutine(_coroutinePingPongScaleLogo);
+
         StartCoroutine(FadeInorFadeOut_Buttons(true, 1.0f, 0.2f));
         FadeOutAndMoveTextWhenAnyKeyPressed();
         MoveAndScaleToTheTopScreen_Logo();
@@ -123,15 +125,10 @@ public class UIManagerMenuLevel : MonoBehaviour
     #endregion
 
 
-    #region ########## TEXT - PRESS ANY KEY ###########
-    private IEnumerator PingPongAlphaTextPressButton()
+    #region ########## TEXT ###########
+    private void PingPongAlphaTextPressButton()
     {
-        while (!MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed)
-        {
-            float alpha = Mathf.PingPong(Time.time * _speedAlphaText, 1f);
-            _pressAnyKeyText.alpha = alpha;
-            yield return null;
-        }
+        _coroutinePingPongAlphaText = StartCoroutine(UIFunctionLibrary.PingPongAlphaText(_pressAnyKeyText, !MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed));
     }
     private void FadeOutAndMoveTextWhenAnyKeyPressed()
     {
@@ -145,17 +142,9 @@ public class UIManagerMenuLevel : MonoBehaviour
 
 
     #region ########## LOGO ##########
-    private IEnumerator PingPongScaleLogo()
+    private void PingPongScaleLogo()
     {
-        while (!MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed)
-        {
-            float alpha = Mathf.PingPong(Time.time * _speedScaleLogo, 1f);
-            float scaleValue = Mathf.Lerp(_minScaleLogo, _maxScaleLogo, alpha);
-            Vector3 scale = new Vector3(scaleValue, scaleValue, scaleValue);
-            _logoRectT.localScale = scale;
-            yield return null;
-        }
-
+        _coroutinePingPongScaleLogo = StartCoroutine( UIFunctionLibrary.PingPongScaleRectT( _logoRectT, 0.95f, 1.05f, 0.9f, !MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed));
     }
     private void MoveAndScaleToTheTopScreen_Logo()
     {
@@ -176,29 +165,29 @@ public class UIManagerMenuLevel : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
 
-        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
-        CubeLyfeManager.Instance.audioManager.FadeAwayBackgroundMusic();
+        ProjectManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+        ProjectManager.Instance.audioManager.StopBackgroundMusicByFadingAway();
 
         StartCoroutine(FadeInorFadeOut_Buttons(false, 0.3f, 0.1f));
-        FadeIn_LoadingBar(true);
+        FadeIn_LoadingBar();
         StartCoroutine(UIFunctionLibrary.LerpAlphaTMPPro(_loadingText, 0f, 1f));
 
         Vector2 currentPosLogo = new Vector2(_logoRectT.localPosition.x, _logoRectT.localPosition.y);
         StartCoroutine(UIFunctionLibrary.MoveUIRectT(_logoRectT, currentPosLogo, _startPosLogo));
 
 
-        StartCoroutine(CubeLyfeManager.Instance.levelManager.LoadLevelAsync(CubeLyfeLevels.L_01_GameOfLifeLevel));
+        //StartCoroutine(CubeLyfeManager.Instance.levelManager.LoadLevelAsync(LevelsInGame.L_01_GameOfLifeLevel));
     }
     public void OnClickButton_Settings()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+        ProjectManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         StartCoroutine(FadeInorFadeOut_Buttons(false, 0.3f, 0.1f));
     }
     public void OnClickButton_Quit()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        CubeLyfeManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+        ProjectManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
 
         Application.Quit();
     }
@@ -230,7 +219,7 @@ public class UIManagerMenuLevel : MonoBehaviour
         StartCoroutine(UIFunctionLibrary.ProgressValueLoadingBarFromImage(_loadingCubeBar, loadingProgress));
     }
 
-    private void FadeIn_LoadingBar(bool isFadeIn)
+    private void FadeIn_LoadingBar()
     {
         StartCoroutine(UIFunctionLibrary.LerpAlphaImage(_loadingCubeBar));
     }

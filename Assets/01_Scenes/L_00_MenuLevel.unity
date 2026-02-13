@@ -1223,6 +1223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f416e1a588697124d9c1239c295e356e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonHoverSound
+  _uiSoundType: 3
 --- !u!1 &1625072785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,6 +1370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f416e1a588697124d9c1239c295e356e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonHoverSound
+  _uiSoundType: 3
 --- !u!1 &1704181762
 GameObject:
   m_ObjectHideFlags: 0
@@ -6720,12 +6722,8 @@ MonoBehaviour:
   _minPower: 0.1
   _maxPower: 0.4
   _speed: 0.3
-  _speedAlphaText: 0.75
   _pressAnyKeyText: {fileID: 2066590349}
   _logoRectT: {fileID: 1818267984}
-  _speedScaleLogo: 0.9
-  _minScaleLogo: 0.99
-  _maxScaleLogo: 1.01
   _buttonsMenuArray:
   - {fileID: 997653609}
   - {fileID: 1625072787}
@@ -7271,6 +7269,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1921375792}
+    - target: {fileID: 5360512152616890183, guid: 34aee86ce51fc2f458d58eca7c9062ef, type: 3}
+      propertyPath: _uiSoundType
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
