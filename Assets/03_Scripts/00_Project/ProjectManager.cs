@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ProjectManager : MonoBehaviour
+public sealed class ProjectManager : MonoBehaviour
 {
-    #region ########## SINGLETON - CUBELYFE MANAGER ###########
+    #region ########## SINGLETON - PROJECT MANAGER ###########
     public static ProjectManager Instance { get; private set; }
 
     private void Awake()

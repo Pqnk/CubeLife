@@ -7288,7 +7288,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 612141906054162038, guid: e971f70f6d120ac44aa600ae57f7bfd8, type: 3}
       propertyPath: m_Name
-      value: '##### MANAGERS NOKILL #####'
+      value: '##### PROJECT MANAGERS #####'
       objectReference: {fileID: 0}
     - target: {fileID: 3808865738148153599, guid: e971f70f6d120ac44aa600ae57f7bfd8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7330,10 +7330,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5124973292574608590, guid: e971f70f6d120ac44aa600ae57f7bfd8, type: 3}
-      propertyPath: menuLevelManager
-      value: 
-      objectReference: {fileID: 581500855}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

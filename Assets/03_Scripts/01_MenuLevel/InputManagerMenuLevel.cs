@@ -1,23 +1,24 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using StructuresAndEnumerations;
 
 public class InputManagerMenuLevel : MonoBehaviour
 {
     public static event Action OnAnyInput;
 
-    public bool hasAnyInputBeenPushed = false;
+    private bool _hasAnyInputBeenPushed = false;
 
     void Update()
     {
-        if (!hasAnyInputBeenPushed && (Keyboard.current?.anyKey.wasPressedThisFrame == true ||
+        if (!_hasAnyInputBeenPushed && (Keyboard.current?.anyKey.wasPressedThisFrame == true ||
         Mouse.current?.press.wasPressedThisFrame == true ||
         Touchscreen.current?.primaryTouch.press.wasPressedThisFrame == true))
         {
             if (Time.time > 1.5f)
             {
                 ProjectManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
-                hasAnyInputBeenPushed = true;
+                _hasAnyInputBeenPushed = true;
                 OnAnyInput?.Invoke();
             }
         }

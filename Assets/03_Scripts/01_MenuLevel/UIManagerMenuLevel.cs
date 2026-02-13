@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using StructuresAndEnumerations;
 
 public class UIManagerMenuLevel : MonoBehaviour
 {
@@ -128,7 +129,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ########## TEXT ###########
     private void PingPongAlphaTextPressButton()
     {
-        _coroutinePingPongAlphaText = StartCoroutine(UIFunctionLibrary.PingPongAlphaText(_pressAnyKeyText, !MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed));
+        _coroutinePingPongAlphaText = StartCoroutine(UIFunctionLibrary.PingPongAlphaText(_pressAnyKeyText));
     }
     private void FadeOutAndMoveTextWhenAnyKeyPressed()
     {
@@ -144,7 +145,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ########## LOGO ##########
     private void PingPongScaleLogo()
     {
-        _coroutinePingPongScaleLogo = StartCoroutine( UIFunctionLibrary.PingPongScaleRectT( _logoRectT, 0.95f, 1.05f, 0.9f, !MenuLevelManager.Instance.inputManagerMenuLevel.hasAnyInputBeenPushed));
+        _coroutinePingPongScaleLogo = StartCoroutine( UIFunctionLibrary.PingPongScaleRectT( _logoRectT, 0.95f, 1.05f, 0.9f));
     }
     private void MoveAndScaleToTheTopScreen_Logo()
     {
@@ -175,8 +176,7 @@ public class UIManagerMenuLevel : MonoBehaviour
         Vector2 currentPosLogo = new Vector2(_logoRectT.localPosition.x, _logoRectT.localPosition.y);
         StartCoroutine(UIFunctionLibrary.MoveUIRectT(_logoRectT, currentPosLogo, _startPosLogo));
 
-
-        //StartCoroutine(CubeLyfeManager.Instance.levelManager.LoadLevelAsync(LevelsInGame.L_01_GameOfLifeLevel));
+        ProjectManager.Instance.levelManager.LoadLevel(LevelsInGame.Level01);
     }
     public void OnClickButton_Settings()
     {

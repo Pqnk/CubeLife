@@ -1,32 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StructuresAndEnumerations;
 
-[System.Serializable]
-public struct LevelMusicStructure
+
+public sealed class AudioManager : MonoBehaviour
 {
-    public LevelsInGame level;
-    public AudioClip backgroundMusicLevel;
-}
-
-[System.Serializable]
-public struct UiSoundStructure
-{
-    public UISoundType soundType;
-    public AudioClip sound;
-}
-
-public enum UISoundType
-{
-    Click01,
-    Click02,
-    Click03,
-    Click04
-}
+    #region /////////////////// PRIVATE SINGLETON \\\\\\\\\\\\\\\\\\\\\
+    [Header("########## SINGLETON - AUDIO MANAGER ###########")]
+    private static AudioManager Instance { get; set; }
+    #endregion
 
 
-public class AudioManager : MonoBehaviour
-{
     #region /////////////////// SERIALIZEFIELD AUDIO \\\\\\\\\\\\\\\\\\\\\
 
     [Header("########## SOURCE FOR BACKGROUND MUSIC ##########")]
@@ -47,6 +32,14 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         _backgroundMusicSource = this.GetComponent<AudioSource>();
         _backgroundmusicMaxVolume = _backgroundMusicSource.volume;
 
@@ -54,6 +47,18 @@ public class AudioManager : MonoBehaviour
         InitializeDictionaryUISoundsOnAwake();
     }
 
+    private void OnEnable()
+    {
+        LevelManager.OnLoadedScene += PlayBackgroundMusicByFadingIn;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.OnLoadedScene -= PlayBackgroundMusicByFadingIn;
+    }
+
+
+    #region ########## INITIALIZING THE DICTIONARIES ############
     private void InitializeDictionaryBackgroundMusicOnAwake()
     {
         _bckgrndMusicDictionary = new Dictionary<LevelsInGame, AudioClip>();
@@ -86,6 +91,8 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+    #endregion
+
 
     #region ############ BACKGROUND MUSIC ##########
 
@@ -122,9 +129,13 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     /// <remarks>This method is typically used to smoothly start background music without abrupt changes in
     /// volume. It is safe to call multiple times; repeated calls will restart the fade-in process.</remarks>
-    public void PlayBackgroundMusicByFadingIn()
+    public void PlayBackgroundMusicByFadingIn(LevelsInGame levelLoaded)
     {
-        StartCoroutine(UpMusicVolumeToMax());
+        if (_bckgrndMusicDictionary.TryGetValue(levelLoaded, out AudioClip clip))
+        {
+            _backgroundMusicSource.clip = clip;
+            StartCoroutine(UpMusicVolumeToMax());
+        }
     }
 
     /// <summary>
@@ -141,7 +152,7 @@ public class AudioManager : MonoBehaviour
 
         while (_backgroundMusicSource.volume < _backgroundmusicMaxVolume)
         {
-            _backgroundMusicSource.volume = Mathf.MoveTowards(_backgroundMusicSource.volume, 0f, Time.deltaTime * 0.2f);
+            _backgroundMusicSource.volume = Mathf.MoveTowards(_backgroundMusicSource.volume, _backgroundmusicMaxVolume, Time.deltaTime * 0.2f);
             yield return null;
         }
     }
