@@ -733,7 +733,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 330585545}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10000
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -2201,7 +2201,7 @@ GameObject:
   - component: {fileID: 755803082}
   - component: {fileID: 755803083}
   m_Layer: 0
-  m_Name: GridManager
+  m_Name: ---- GridManager ----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2385,7 +2385,6 @@ GameObject:
   - component: {fileID: 817462275}
   - component: {fileID: 817462277}
   - component: {fileID: 817462278}
-  - component: {fileID: 817462279}
   - component: {fileID: 817462281}
   m_Layer: 5
   m_Name: Panel - GridParameter
@@ -2437,21 +2436,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &817462279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817462274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 15.81, y: -12.48}
-  m_UseGraphicAlpha: 1
 --- !u!114 &817462281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2465,15 +2449,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 273ff7267b8104040ae57196955bd033, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.078431375}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

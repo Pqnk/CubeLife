@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public static class UIFunctionLibrary
 {
+    public static event Action OnMoveUiRectFinished;
 
     #region ########## FADE IN / FADE OUT / CHANGE ALPHA UI ELEMENTS##########
 
@@ -195,6 +196,10 @@ public static class UIFunctionLibrary
 
             yield return null;
         }
+
+        rectTransform.anchoredPosition = endPosition;
+
+        OnMoveUiRectFinished?.Invoke();
     }
 
     /// <summary>

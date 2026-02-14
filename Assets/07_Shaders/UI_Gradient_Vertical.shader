@@ -1,4 +1,4 @@
-Shader "Custom/NewUnlitUniversalRenderPipelineShader"
+Shader "Custom/UI_Gradient_Vertical"
 {
     Properties
     {

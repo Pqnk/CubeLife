@@ -1,19 +1,23 @@
-Shader "Custom/UI_Gradienthh"
+Shader "Custom/UI_Gradient_Horizontal"
 {
-    Properties
+   Properties
     {
-        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
-        [MainTexture] _BaseMap("Base Map", 2D) = "white"
+        _ColorLeft("Left Color", Color) = (1, 0, 0, 1)
+        _ColorRight("Right Color", Color) = (0, 0, 1, 1)
     }
 
     SubShader
     {
-        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" }
+        Tags { "RenderType"="Transparent" 
+       "Queue"="Transparent"
+       "RenderPipeline"="UniversalPipeline" }
 
         Pass
         {
-            HLSLPROGRAM
+            Blend SrcAlpha OneMinusSrcAlpha
+            ZWrite Off
 
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
@@ -31,26 +35,22 @@ Shader "Custom/UI_Gradienthh"
                 float2 uv : TEXCOORD0;
             };
 
-            TEXTURE2D(_BaseMap);
-            SAMPLER(sampler_BaseMap);
-
             CBUFFER_START(UnityPerMaterial)
-                half4 _BaseColor;
-                float4 _BaseMap_ST;
+                half4 _ColorLeft;
+                half4 _ColorRight;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
-                OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
+                OUT.uv = IN.uv;
                 return OUT;
             }
 
             half4 frag(Varyings IN) : SV_Target
             {
-                half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv) * _BaseColor;
-                return color;
+                return lerp(_ColorLeft, _ColorRight, IN.uv.x);
             }
             ENDHLSL
         }

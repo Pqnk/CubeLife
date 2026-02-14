@@ -44,6 +44,12 @@ public class UIManagerMenuLevel : MonoBehaviour
     private Coroutine _coroutinePingPongAlphaText = null;
     private Coroutine _coroutinePingPongScaleLogo = null;
 
+    [Space]
+    [Header("Settings Panel")]
+    [SerializeField] private RectTransform _settingsPanelrectT;
+    private Vector2 _settingsPanelNormalPosition = new Vector2(0, 0);
+    private Vector2 _settingsPanelHidingPosition = new Vector2(-800, 0);
+
     #endregion
 
     private void Awake()
@@ -51,6 +57,10 @@ public class UIManagerMenuLevel : MonoBehaviour
         //  Saving the Image component from the UI object containing the Logo
         _logoImage = _logoRectT.GetComponent<Image>();
         _startPosLogo = new Vector2(_logoRectT.localPosition.x, _logoRectT.localPosition.y);
+
+        //  Same for Settings panel
+        _settingsPanelrectT.gameObject.SetActive(false);
+        //_settingsPanelNormalPosition = _settingsPanelrectT.localPosition;
 
         //  Initializing buttons appearance - Invisible and not able to interact
         foreach (Button button in _buttonsMenuArray)
@@ -145,7 +155,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     #region ########## LOGO ##########
     private void PingPongScaleLogo()
     {
-        _coroutinePingPongScaleLogo = StartCoroutine( UIFunctionLibrary.PingPongScaleRectT( _logoRectT, 0.95f, 1.05f, 0.9f));
+        _coroutinePingPongScaleLogo = StartCoroutine(UIFunctionLibrary.PingPongScaleRectT(_logoRectT, 0.95f, 1.05f, 0.9f));
     }
     private void MoveAndScaleToTheTopScreen_Logo()
     {
@@ -183,6 +193,9 @@ public class UIManagerMenuLevel : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         ProjectManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
         StartCoroutine(FadeInorFadeOut_Buttons(false, 0.3f, 0.1f));
+
+        _settingsPanelrectT.gameObject.SetActive(true);
+        StartCoroutine(UIFunctionLibrary.MoveUIRectT(_settingsPanelrectT, _settingsPanelHidingPosition, _settingsPanelNormalPosition, .2f));
     }
     public void OnClickButton_Quit()
     {
@@ -196,8 +209,8 @@ public class UIManagerMenuLevel : MonoBehaviour
     {
         float startValue = isFadeIn ? 0f : 1f;
         float endValue = isFadeIn ? 1f : 0f;
-        
-        foreach(Button button in _buttonsMenuArray)
+
+        foreach (Button button in _buttonsMenuArray)
         {
             button.interactable = false;
         }
@@ -207,6 +220,22 @@ public class UIManagerMenuLevel : MonoBehaviour
             StartCoroutine(UIFunctionLibrary.LerpAlphaButtonTMPPro(button, startValue, endValue, fadeDuration));
             yield return new WaitForSeconds(delayBetweenButtons);
         }
+    }
+
+    public void OnClickButton_Settings_SaveAndBack()
+    {
+        ProjectManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+
+        UIFunctionLibrary.OnMoveUiRectFinished += DeactivateUISettingsWhenHiding;
+        StartCoroutine(UIFunctionLibrary.MoveUIRectT(_settingsPanelrectT, _settingsPanelNormalPosition, _settingsPanelHidingPosition, 0.2f));
+        StartCoroutine(FadeInorFadeOut_Buttons(true, 0.3f, 0.1f));
+
+    }
+
+    private void DeactivateUISettingsWhenHiding()
+    {
+        _settingsPanelrectT.gameObject.SetActive(false);
+        UIFunctionLibrary.OnMoveUiRectFinished -= DeactivateUISettingsWhenHiding;
     }
 
     #endregion

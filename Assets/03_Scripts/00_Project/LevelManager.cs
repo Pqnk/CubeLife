@@ -10,15 +10,23 @@ using StructuresAndEnumerations;
 
 public sealed class LevelManager : MonoBehaviour
 {
+    #region /////////////////// PRIVATE SINGLETON \\\\\\\\\\\\\\\\\\\\\
+    private static LevelManager Instance { get; set; }
+    #endregion
+
+
+    #region /////////////////// SERIALIZABLE & VARIABLES \\\\\\\\\\\\\\\\\\\\\
     [Header("########## LEVEL PARAMETRING ENTRY ##########")]
     [SerializeField] private List<LevelStructure> _levelsParametersList;
     private Dictionary<LevelsInGame, string> _levelsDictinary;
+    #endregion
 
-    private static LevelManager Instance { get; set; }
 
+    #region /////////////////// LEVELMANAGER EVENTS \\\\\\\\\\\\\\\\\\\\\
     public static event Action<float> OnLoadingScene;
-
     public static event Action<LevelsInGame> OnLoadedScene;
+    #endregion
+
 
     private void Awake()
     {
@@ -62,15 +70,10 @@ public sealed class LevelManager : MonoBehaviour
     {
         AsyncOperation op = SceneManager.LoadSceneAsync($"{levelNameToLoad}");
         op.allowSceneActivation = false;
-
         OnLoadingScene?.Invoke(0.9f);
-
         yield return new WaitForSeconds(4f);
-
         op.allowSceneActivation = true;
-
         OnLoadedScene?.Invoke(levelToLoad);
-
     }
 
 }
