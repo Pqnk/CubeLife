@@ -15,6 +15,8 @@ public sealed class AudioManager : MonoBehaviour
     #region /////////////////// SERIALIZEFIELD AUDIO \\\\\\\\\\\\\\\\\\\\\
 
     public float BackgroundVolume { get { return _backgroundMusicSource.volume; }  }
+    public float EffectVolume { get; private set; }
+    public float UIVolume { get; private set; }
 
     [Header("########## SOURCE FOR BACKGROUND MUSIC ##########")]
     private AudioSource _backgroundMusicSource;
@@ -39,7 +41,6 @@ public sealed class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
 
         _backgroundMusicSource = this.GetComponent<AudioSource>();
@@ -59,6 +60,17 @@ public sealed class AudioManager : MonoBehaviour
         LevelManager.OnLoadedScene -= PlayBackgroundMusicByFadingIn;
     }
 
+    private void Start()
+    {
+        SaveDataGridParameters data = SaveParametersManager.ChargeSavedParametersFile();
+        if (data != null)
+        {
+            ChangeMusicVolume(data.musicVolume);
+            EffectVolume = data.effectVolume;
+            UIVolume = data.uiVolume;
+            ChangeUISoundsVolume(data.uiVolume);
+        }
+    }
 
     #region ########## INITIALIZING THE DICTIONARIES ############
     private void InitializeDictionaryBackgroundMusicOnAwake()
@@ -181,6 +193,7 @@ public sealed class AudioManager : MonoBehaviour
             soundCasterAudioSource.playOnAwake = false;
             soundCasterAudioSource.loop = false;
             soundCasterAudioSource.clip = clip;
+            soundCasterAudioSource.volume = UIVolume;
             soundCasterAudioSource.Play();
             StartCoroutine(DestroyWhenSoundFinishedp(soundCasterAudioSource));
         }
@@ -200,6 +213,11 @@ public sealed class AudioManager : MonoBehaviour
         Destroy(source.gameObject);
     }
 
+
+    public void ChangeUISoundsVolume(float newVolume)
+    {
+        UIVolume = newVolume;
+    }
     #endregion
 
 }

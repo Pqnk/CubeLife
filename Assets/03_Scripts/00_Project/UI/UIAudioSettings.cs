@@ -2,11 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIAudioSettings : MonoBehaviour, IUISettings
+public class UIAudioSettings : UISettings
 {
     public float musicVolume { get; private set; }
-    public int effectVolume { get; private set; }
-    public int uiVolume { get; private set; }
+    public float effectVolume { get; private set; }
+    public float uiVolume { get; private set; }
 
     [Header("---- MUSIC VOLUME ----")]
     [SerializeField] private Slider musicVolSlider;
@@ -33,29 +33,74 @@ public class UIAudioSettings : MonoBehaviour, IUISettings
     public void OnSliderEffectVolumeValueChanged(float truc)
     {
         effectVolValueTxt.text = $"{truc}";
-        effectVolume = (int)truc;
+        effectVolume = truc;
     }
 
     public void OnSliderUIVolumeValueChanged(float truc)
     {
         uiVolValueTxt.text = $"{truc}";
-        uiVolume = (int)truc;
+        uiVolume = truc;
+
+        ProjectManager.Instance.audioManager.ChangeUISoundsVolume(truc);
     }
 
 
 
-    public void InitializeAllValueText()
+    public override void InitializeAllValueText()
     {
-        float musicvol = ProjectManager.Instance.audioManager.BackgroundVolume;
 
-        musicVolSlider.value = musicvol;
         musicVolValueTxt.text = musicVolSlider.value.ToString();
         effectVolValueTxt.text = effectVolSlider.value.ToString();
         uiVolValueTxt.text = uiVolSlider.value.ToString();
 
 
-        musicVolume = (int)musicVolSlider.value;
-        effectVolume = (int)effectVolSlider.value;
-        uiVolume = (int)uiVolSlider.value;
+        musicVolume = musicVolSlider.value;
+        effectVolume = effectVolSlider.value;
+        uiVolume = uiVolSlider.value;
+
+        float musicvol = ProjectManager.Instance.audioManager.BackgroundVolume;
+
+        //musicVolSlider.value = musicvol;
+        //musicVolValueTxt.text = musicVolSlider.value.ToString();
+        //effectVolValueTxt.text = effectVolSlider.value.ToString();
+        //uiVolValueTxt.text = uiVolSlider.value.ToString();
+
+
+        //musicVolume = (int)musicVolSlider.value;
+        //effectVolume = (int)effectVolSlider.value;
+        //uiVolume = (int)uiVolSlider.value;
+
+
+        //if (!SaveParametersManager.DoesSaveFileAlreadyExists())
+        //{
+        //    float musicvol = ProjectManager.Instance.audioManager.BackgroundVolume;
+
+        //    musicVolSlider.value = musicvol;
+        //    musicVolValueTxt.text = musicVolSlider.value.ToString();
+        //    effectVolValueTxt.text = effectVolSlider.value.ToString();
+        //    uiVolValueTxt.text = uiVolSlider.value.ToString();
+
+
+        //    musicVolume = (int)musicVolSlider.value;
+        //    effectVolume = (int)effectVolSlider.value;
+        //    uiVolume = (int)uiVolSlider.value;
+        //}
+        //else
+        //{
+        //    SaveDataGridParameters data = SaveParametersManager.ChargeSavedParametersFile();
+
+        //    musicVolSlider.value = data.musicVolume;
+        //    effectVolSlider.value = data.effectVolume;
+        //    uiVolSlider.value = data.uiVolume;
+
+        //    musicVolValueTxt.text = musicVolSlider.value.ToString();
+        //    effectVolValueTxt.text = effectVolSlider.value.ToString();
+        //    uiVolValueTxt.text = uiVolSlider.value.ToString();
+
+
+        //    musicVolume = (int)musicVolSlider.value;
+        //    effectVolume = (int)effectVolSlider.value;
+        //    uiVolume = (int)uiVolSlider.value;
+        //}
     }
 }

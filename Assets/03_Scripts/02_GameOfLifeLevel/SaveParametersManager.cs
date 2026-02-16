@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -15,22 +16,23 @@ public static class SaveParametersManager
     }
 
     /// <summary>
-    /// Method to create a file and save parameters of the Grid in it.
+    /// Saves the specified grid and audio settings parameters to persistent storage.
     /// </summary>
-    public static void SaveGridParameters()
+    /// <remarks>This method serializes the provided parameters and writes them to a file at the application's
+    /// designated settings path, overwriting any existing settings. Call this method to persist user preferences or
+    /// configuration changes.</remarks>
+    /// <param name="gridSize">The size of the grid to be saved. Must be a positive integer.</param>
+    /// <param name="endStep">The desired end step value for the grid. Must be a non-negative integer.</param>
+    /// <param name="speed">The speed setting to be saved. Represents the playback or animation speed. Must be a non-negative integer.</param>
+    /// <param name="musicVolume">The music volume level to be saved. Typically a value between 0.0 (muted) and 1.0 (maximum volume).</param>
+    /// <param name="effectVolume">The effect volume level to be saved. Must be a non-negative integer, with the valid range depending on the
+    /// application's audio system.</param>
+    /// <param name="uiVolume">The user interface volume level to be saved. Must be a non-negative integer, with the valid range depending on
+    /// the application's audio system.</param>
+    public static void SaveSettingsParameters(int gridSize, int endStep, int speed, float musicVolume, float effectVolume, float uiVolume)
     {
-        SaveDataGridParameters data = new SaveDataGridParameters
-        {
-            gridSize = GameManager.Instance.GridSize,
-            desiredEndStep = GameManager.Instance.DesiredEndStep
-        };
+        Debug.Log($"Grid size : {gridSize}, end step : {endStep}, musicvol : {musicVolume}, uivol : {uiVolume} ");
 
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(SaveDataPath, json);
-    }
-
-    public static void SaveGridParameters(int gridSize, int endStep, int speed, float musicVolume, int effectVolume, int uiVolume)
-    {
         SaveDataGridParameters data = new SaveDataGridParameters
         {
             gridSize = gridSize,
@@ -50,7 +52,7 @@ public static class SaveParametersManager
     /// Datas are saved from the class SaveDataGridParameters.
     /// </summary>
     /// <returns>SaveDataGridParameters</returns>
-    public static SaveDataGridParameters ChargeSavedGridParametersFile()
+    public static SaveDataGridParameters ChargeSavedParametersFile()
     {
         SaveDataGridParameters data = null;
 

@@ -9,10 +9,10 @@ public class UISettingsManager : MonoBehaviour
     {
         if (_gameSettings != null && _audioSettings != null)
         {
-            SaveParametersManager.SaveGridParameters(
-                _gameSettings.gridSize,
-                _gameSettings.endStep,
-                _gameSettings.speed,
+            SaveParametersManager.SaveSettingsParameters(
+                _gameSettings.GridSize,
+                _gameSettings.EndStep,
+                _gameSettings.Speed,
                 _audioSettings.musicVolume,
                 _audioSettings.effectVolume,
                 _audioSettings.uiVolume

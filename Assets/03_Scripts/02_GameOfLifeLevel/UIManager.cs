@@ -129,8 +129,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateParametersInfos()
     {
-        gridSizeInfo.text = SaveParametersManager.ChargeSavedGridParametersFile().gridSize.ToString();
-        DesiredEndStepInfo.text = SaveParametersManager.ChargeSavedGridParametersFile().desiredEndStep.ToString();
+        gridSizeInfo.text = SaveParametersManager.ChargeSavedParametersFile().gridSize.ToString();
+        DesiredEndStepInfo.text = SaveParametersManager.ChargeSavedParametersFile().desiredEndStep.ToString();
     }
 
     #endregion

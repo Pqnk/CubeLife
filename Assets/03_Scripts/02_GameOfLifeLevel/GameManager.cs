@@ -129,14 +129,14 @@ public sealed class GameManager : MonoBehaviour
     {
         GridSize = gridSize;
         DesiredEndStep = desiredEndStep;
-        SaveParametersManager.SaveGridParameters();
+        //SaveParametersManager.SaveGridParameters();
         UIManager.Instance.UpdateParametersInfos();
     }
 
     public void ChargeGridParameterValuesAndBegin()
     {
-        GridSize = SaveParametersManager.ChargeSavedGridParametersFile().gridSize;
-        DesiredEndStep = SaveParametersManager.ChargeSavedGridParametersFile().desiredEndStep;
+        GridSize = SaveParametersManager.ChargeSavedParametersFile().gridSize;
+        DesiredEndStep = SaveParametersManager.ChargeSavedParametersFile().desiredEndStep;
         GridManager.Instance.InitializeGridManager(GridSize);
         UIManager.Instance.UpdateParametersInfos();
     }

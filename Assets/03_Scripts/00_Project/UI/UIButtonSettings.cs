@@ -10,13 +10,13 @@ public class UIButtonSettings : MonoBehaviour
     [SerializeField] private CanvasGroup _panelSettings;
     private Image _imageButtonSettings;
     private Button _buttonSettings;
-    private IUISettings _uiSettings;
+    private UISettings _uiSettings;
 
     private void Awake()
     {
         _imageButtonSettings = this.transform.GetChild(1).GetComponent<Image>();
         _buttonSettings = GetComponent<Button>();
-        _uiSettings = _panelSettings.transform.GetComponent<IUISettings>();
+        _uiSettings = _panelSettings.transform.GetComponent<UISettings>();
 
         DisableCurrentSettings();
     }

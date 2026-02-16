@@ -9,7 +9,7 @@ public class SaveDataGridParameters
 
     public float musicVolume;
 
-    public int effectVolume;
+    public float effectVolume;
 
-    public int uiVolume;
+    public float uiVolume;
 }
