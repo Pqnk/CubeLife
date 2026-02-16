@@ -29,6 +29,22 @@ public static class SaveParametersManager
         File.WriteAllText(SaveDataPath, json);
     }
 
+    public static void SaveGridParameters(int gridSize, int endStep, int speed, float musicVolume, int effectVolume, int uiVolume)
+    {
+        SaveDataGridParameters data = new SaveDataGridParameters
+        {
+            gridSize = gridSize,
+            desiredEndStep = endStep,
+            speed = speed,
+            musicVolume = musicVolume,
+            effectVolume = effectVolume,
+            uiVolume = uiVolume
+        };
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(SaveDataPath, json);
+    }
+
     /// <summary>
     /// Method to get the datas from the save file.
     /// Datas are saved from the class SaveDataGridParameters.

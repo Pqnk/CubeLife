@@ -49,6 +49,7 @@ public class UIManagerMenuLevel : MonoBehaviour
     [SerializeField] private RectTransform _settingsPanelrectT;
     private Vector2 _settingsPanelNormalPosition = new Vector2(0, 0);
     private Vector2 _settingsPanelHidingPosition = new Vector2(-800, 0);
+    [SerializeField] private UISettingsManager _uiSettingsManager;
 
     #endregion
 
@@ -225,6 +226,8 @@ public class UIManagerMenuLevel : MonoBehaviour
     public void OnClickButton_Settings_SaveAndBack()
     {
         ProjectManager.Instance.audioManager.PlayUISound(UISoundType.Click01);
+
+        _uiSettingsManager.SaveSettings();
 
         UIFunctionLibrary.OnMoveUiRectFinished += DeactivateUISettingsWhenHiding;
         StartCoroutine(UIFunctionLibrary.MoveUIRectT(_settingsPanelrectT, _settingsPanelNormalPosition, _settingsPanelHidingPosition, 0.2f));

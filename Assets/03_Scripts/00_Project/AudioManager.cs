@@ -14,6 +14,8 @@ public sealed class AudioManager : MonoBehaviour
 
     #region /////////////////// SERIALIZEFIELD AUDIO \\\\\\\\\\\\\\\\\\\\\
 
+    public float BackgroundVolume { get { return _backgroundMusicSource.volume; }  }
+
     [Header("########## SOURCE FOR BACKGROUND MUSIC ##########")]
     private AudioSource _backgroundMusicSource;
     private float _backgroundmusicMaxVolume;
@@ -155,6 +157,11 @@ public sealed class AudioManager : MonoBehaviour
             _backgroundMusicSource.volume = Mathf.MoveTowards(_backgroundMusicSource.volume, _backgroundmusicMaxVolume, Time.deltaTime * 0.2f);
             yield return null;
         }
+    }
+
+    public void ChangeMusicVolume(float vol)
+    {
+        _backgroundMusicSource.volume = vol;
     }
 
     #endregion
