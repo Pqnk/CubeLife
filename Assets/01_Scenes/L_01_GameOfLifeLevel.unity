@@ -2887,6 +2887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1da3f61586890046873b809c0229a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Manager_GameOfLifeLevel
+  _uiManagerGameOfLife: {fileID: 1916580803}
+  _inputManagerGameOfLife: {fileID: 1146371224}
 --- !u!1 &1642103214
 GameObject:
   m_ObjectHideFlags: 0

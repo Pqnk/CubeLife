@@ -3,11 +3,12 @@ using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class UIManager_GameOfLifeLevel : MonoBehaviour
 {
     #region /////////////// SINGLETON INSTANCE UIMANAGER \\\\\\\\\\\\\\\\\
-    public static UIManager_GameOfLifeLevel Instance { get; private set; }
+    private static UIManager_GameOfLifeLevel Instance { get; set; }
     #endregion
 
 
@@ -27,6 +28,13 @@ public class UIManager_GameOfLifeLevel : MonoBehaviour
     #endregion
 
 
+    #region /////////////////// EVENTS \\\\\\\\\\\\\\\\\\\\
+
+    public static event Action OnClickUIStartPauseButton;
+
+    #endregion
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,19 +50,12 @@ public class UIManager_GameOfLifeLevel : MonoBehaviour
     #region ########## METHODS ##########
     public void OnClickStartPauseButton()
     {
-        Manager_GameOfLifeLevel.Instance.ToggleStartPauseGame();
-        UpdateTextButtonStartStop();
+        OnClickUIStartPauseButton?.Invoke();
     }
 
-    public void UpdateGameUI()
+    public void UpdateGameUI(GameState gameState, int numberStep, bool endStepReached)
     {
-        UpdateNumberStepUI();
-        UpdateTextButtonStartStop();
-    }
-
-    private void UpdateTextButtonStartStop()
-    {
-        switch (Manager_GameOfLifeLevel.Instance.GameState)
+        switch (gameState)
         {
             case GameState.Running:
                 startPauseButtonTEXT.text = "PAUSE";
@@ -65,23 +66,13 @@ public class UIManager_GameOfLifeLevel : MonoBehaviour
                 break;
 
             case GameState.Stopped:
-                startPauseButtonTEXT.text = Manager_GameOfLifeLevel.Instance.DesiredEndStepReached ? "REACHED" : "START";
+                startPauseButtonTEXT.text = endStepReached ? "REACHED" : "START";
                 break;
-
         }
+
+        numberStepUITEXT.text = numberStep.ToString();
     }
 
-    private void UpdateNumberStepUI()
-    {
-        numberStepUITEXT.text = Manager_GameOfLifeLevel.Instance.NumberStep.ToString();
-    }
-
-    public void OnGridSizeValueChanged(float value)
-    {
-        int intValue = (int)value;
-        GridManager.Instance.DeleteGrid();
-        GridManager.Instance.InitializeGridManager(intValue);
-    }
     #endregion
 
 

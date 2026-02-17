@@ -18,15 +18,16 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
 
 
     #region /////////////////// INSPECTOR VARIABLES \\\\\\\\\\\\\\\\\\\\\\\
-
-
-
+    [Header("----- UI MANAGER - GameOfLife Level -----")]
+    [SerializeField] private UIManager_GameOfLifeLevel _uiManagerGameOfLife;
+    [Header("----- INPUT MANAGER - GameOfLife Level -----")]
+    [SerializeField] private InputManager_GameOfLifeLevel _inputManagerGameOfLife;
     #endregion
 
 
     #region /////////////////// GAMEMANAGER PROPERTIES \\\\\\\\\\\\\\\\\\\\\\
     private Coroutine _gameCoroutine = null;
-    public  int GridSize { get; private set; } = 10;
+    public int GridSize { get; private set; } = 10;
     public int GameSpeed { get; private set; } = 1;
     public int NumberStep { get; private set; } = 0;
     public bool GameStarted { get { return GameState == GameState.Running || GameState == GameState.Paused; } }
@@ -45,6 +46,16 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
         }
         Instance = this;
 
+    }
+
+    private void OnEnable()
+    {
+        UIManager_GameOfLifeLevel.OnClickUIStartPauseButton += ToggleStartPauseGame;
+    }
+
+    private void OnDisable()
+    {
+        UIManager_GameOfLifeLevel.OnClickUIStartPauseButton -= ToggleStartPauseGame;
     }
 
 
@@ -69,7 +80,10 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
                 }
                 break;
         }
+
+        _uiManagerGameOfLife.UpdateGameUI(GameState, NumberStep, DesiredEndStepReached);
     }
+
     public void StartGame()
     {
         if (_gameCoroutine == null && !GameStarted)
@@ -79,6 +93,7 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
             GridManager.Instance.ResetAllCellMaterials();
         }
     }
+
     public void PauseGame()
     {
         if (_gameCoroutine != null && GameStarted)
@@ -87,6 +102,7 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
             StopCoroutine(_gameCoroutine);
         }
     }
+
     public void ResumeGame()
     {
         if (_gameCoroutine != null && GameStarted)
@@ -95,6 +111,7 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
             _gameCoroutine = StartCoroutine(LoopStepCounting());
         }
     }
+
     public void StopGame()
     {
         if (_gameCoroutine != null && GameStarted)
@@ -104,6 +121,7 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
             _gameCoroutine = null;
         }
     }
+
     public void ResetGame()
     {
         if (_gameCoroutine != null)
@@ -116,26 +134,11 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
         GameSpeed = 1;
         GridManager.Instance.ResetGridToAllDead();
     }
+
     public void UpdateSpeedGame(int newGameSpeed)
     {
         GameSpeed = newGameSpeed;
     }
-    #endregion
-
-
-    #region ########## SAVE PARAMETERS ##########
-
-    public void SaveGridParametersValueAndBegin(int gridSize, int desiredEndStep)
-    {
-        GridSize = gridSize;
-        DesiredEndStep = desiredEndStep;
-    }
-
-    public void ChargeGridParameterValuesAndBegin()
-    {
-        GridManager.Instance.InitializeGridManager(GridSize);
-    }
-
     #endregion
 
 
@@ -159,7 +162,7 @@ public sealed class Manager_GameOfLifeLevel : MonoBehaviour
                 StopGame();
             }
 
-            UIManager_GameOfLifeLevel.Instance.UpdateGameUI();
+            _uiManagerGameOfLife.UpdateGameUI(GameState, NumberStep, DesiredEndStepReached);
         }
     }
     #endregion

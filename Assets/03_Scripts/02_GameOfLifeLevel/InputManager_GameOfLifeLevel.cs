@@ -5,6 +5,13 @@ using UnityEngine.InputSystem;
 
 public class InputManager_GameOfLifeLevel : MonoBehaviour
 {
+    #region ///////////////////// SINGLETON INSTANCE INPUT MANAGER \\\\\\\\\\\\\\\\\\\\\\\\\
+    private static InputManager_GameOfLifeLevel Instance { get; set; }
+    #endregion
+
+
+    #region //////////////////// VARIABLES \\\\\\\\\\\\\\\\\\\\\
+    [SerializeField] private GameObject _camPivot;
     private Camera _mainCamera;
     private CellBehavior _cellClicked;
     private bool rightClicking;
@@ -16,16 +23,41 @@ public class InputManager_GameOfLifeLevel : MonoBehaviour
     private float pitch;
     private Vector2 clickStartPos;
     private Vector2 currentMousePos;
+    #endregion
 
-    [SerializeField] private GameObject _camPivot;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         _mainCamera = Camera.main;
     }
 
+    private void Update()
+    {
+        if (rightClicking)
+        {
+            Vector2 delta = currentMousePos - clickStartPos;
 
-    #region ----LeftClick----
+            if (delta.sqrMagnitude < 1f)
+                return;
+
+            yaw += delta.x * sensitivity * Time.deltaTime;
+            pitch -= delta.y * sensitivity * Time.deltaTime;
+
+            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+
+            _camPivot.transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+        }
+    }
+
+
+    #region ############ METHODS ##############
     public void OnLeftClick(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -55,9 +87,7 @@ public class InputManager_GameOfLifeLevel : MonoBehaviour
 
         _cellClicked.SetCellState(!hitInfo.collider.gameObject.GetComponentInParent<CellBehavior>().IsAlive);
     }
-    #endregion
 
-    #region ----Right Click Hold----
     public void OnRightClickHold(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -70,9 +100,7 @@ public class InputManager_GameOfLifeLevel : MonoBehaviour
             rightClicking = false;
         }
     }
-    #endregion
 
-    #region ----MousePosition----
     public void OnMousePosition(InputAction.CallbackContext context)
     {
         currentMousePos = context.ReadValue<Vector2>();
@@ -80,21 +108,4 @@ public class InputManager_GameOfLifeLevel : MonoBehaviour
     #endregion
 
 
-    private void Update()
-    {
-        if (rightClicking)
-        {
-            Vector2 delta = currentMousePos - clickStartPos;
-
-            if (delta.sqrMagnitude < 1f)
-                return;
-
-            yaw += delta.x * sensitivity * Time.deltaTime;
-            pitch -= delta.y * sensitivity * Time.deltaTime;
-
-            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-
-            _camPivot.transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
-        }
-    }
 }
