@@ -135,8 +135,8 @@ public sealed class GameManager : MonoBehaviour
 
     public void ChargeGridParameterValuesAndBegin()
     {
-        GridSize = SaveParametersManager.ChargeSavedParametersFile().gridSize;
-        DesiredEndStep = SaveParametersManager.ChargeSavedParametersFile().desiredEndStep;
+        //GridSize = SaveParametersManager.ChargeSavedParametersFile().gridSize;
+        //DesiredEndStep = SaveParametersManager.ChargeSavedParametersFile().desiredEndStep;
         GridManager.Instance.InitializeGridManager(GridSize);
         UIManager.Instance.UpdateParametersInfos();
     }

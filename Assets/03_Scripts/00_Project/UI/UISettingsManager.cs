@@ -13,9 +13,9 @@ public class UISettingsManager : MonoBehaviour
                 _gameSettings.GridSize,
                 _gameSettings.EndStep,
                 _gameSettings.Speed,
-                _audioSettings.musicVolume,
-                _audioSettings.effectVolume,
-                _audioSettings.uiVolume
+                _audioSettings.MusicVolume,
+                _audioSettings.EffectVolume,
+                _audioSettings.UIVolume
                 );
         }
     }

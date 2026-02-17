@@ -129,8 +129,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateParametersInfos()
     {
-        gridSizeInfo.text = SaveParametersManager.ChargeSavedParametersFile().gridSize.ToString();
-        DesiredEndStepInfo.text = SaveParametersManager.ChargeSavedParametersFile().desiredEndStep.ToString();
+        //gridSizeInfo.text = SaveParametersManager.ChargeSavedParametersFile().gridSize.ToString();
+        //DesiredEndStepInfo.text = SaveParametersManager.ChargeSavedParametersFile().desiredEndStep.ToString();
     }
 
     #endregion
@@ -230,7 +230,7 @@ public class UIManager : MonoBehaviour
         desiredEndStepSliderValue.text = desiredEndStepSlider.value.ToString();
         gameSpeedSlider.onValueChanged.AddListener(UpdateSpeedGame);
 
-        if (SaveParametersManager.DoesSaveFileAlreadyExists())
+        if (SaveParametersManager.DoesSaveFileAlreadyExists)
         {
             ActivateCanvasGameDisplay(true);
             ActivateCanvasGridParameters(false);

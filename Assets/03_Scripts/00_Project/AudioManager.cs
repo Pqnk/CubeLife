@@ -62,13 +62,11 @@ public sealed class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        SaveDataGridParameters data = SaveParametersManager.ChargeSavedParametersFile();
-        if (data != null)
+        if (SaveParametersManager.DoesSaveFileAlreadyExists)
         {
-            ChangeMusicVolume(data.musicVolume);
-            EffectVolume = data.effectVolume;
-            UIVolume = data.uiVolume;
-            ChangeUISoundsVolume(data.uiVolume);
+            ChangeMusicVolume(SaveParametersManager.SaveDataGridParameters.musicVolume);
+            ChangeUISoundsVolume(SaveParametersManager.SaveDataGridParameters.uiVolume);
+            EffectVolume = SaveParametersManager.SaveDataGridParameters.effectVolume;
         }
     }
 

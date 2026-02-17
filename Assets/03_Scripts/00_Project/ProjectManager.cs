@@ -4,18 +4,6 @@ public sealed class ProjectManager : MonoBehaviour
 {
     #region ########## SINGLETON - PROJECT MANAGER ###########
     public static ProjectManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-    }
-
     #endregion
 
     [Header("##### AUDIO MANAGER #####")]
@@ -24,4 +12,17 @@ public sealed class ProjectManager : MonoBehaviour
     [Space]
     [Header("##### LEVEL MANAGER #####")]
     public LevelManager levelManager;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        SaveParametersManager.ChargeSavedParametersFile();
+    }
+
 }

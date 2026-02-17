@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIGameSettings : UISettings
+public class UIGameSettings : UISectionSettings
 {
     public int GridSize { get; private set; }
     public int EndStep { get; private set; }
@@ -42,44 +42,30 @@ public class UIGameSettings : UISettings
         Speed = (int)truc;
     }
 
-    public override void InitializeAllValueText()
+    public override void ChargeDataValue()
     {
-        gridSizeValueTxt.text = gridSizeSlider.value.ToString();
-        endStepValueTxt.text = endStepSlider.value.ToString();
-        speedValueTxt.text = speedSlider.value.ToString();
+        GridSize = SaveParametersManager.SaveDataGridParameters.gridSize;
+        EndStep = SaveParametersManager.SaveDataGridParameters.desiredEndStep;
+        Speed = SaveParametersManager.SaveDataGridParameters.speed;
 
+        gridSizeValueTxt.text = GridSize.ToString();
+        endStepValueTxt.text = EndStep.ToString();
+        speedValueTxt.text = Speed.ToString();
+
+        gridSizeSlider.value = GridSize;
+        endStepSlider.value = EndStep;
+        speedSlider.value = Speed;
+
+    }
+
+    public override void InitializeBaseSectionSettingsValue()
+    {
         GridSize = (int)gridSizeSlider.value;
         EndStep = (int)endStepSlider.value;
         Speed = (int)speedSlider.value;
 
-        Debug.Log($"Data : {data.musicVolume}");
-
-        //if(!SaveParametersManager.DoesSaveFileAlreadyExists())
-        //{
-        //    gridSizeValueTxt.text = gridSizeSlider.value.ToString();
-        //    endStepValueTxt.text = endStepSlider.value.ToString();
-        //    speedValueTxt.text = speedSlider.value.ToString();
-
-        //    gridSize = (int)gridSizeSlider.value;
-        //    endStep = (int)endStepSlider.value;
-        //    speed = (int)speedSlider.value;
-        //}
-        //else
-        //{
-        //    SaveDataGridParameters data = SaveParametersManager.ChargeSavedParametersFile();
-
-        //    gridSizeSlider.value = data.gridSize;
-        //    endStepSlider.value = data.desiredEndStep;
-        //    speedSlider.value = data.speed;
-
-        //    gridSizeValueTxt.text = gridSizeSlider.value.ToString();
-        //    endStepValueTxt.text = endStepSlider.value.ToString();
-        //    speedValueTxt.text = speedSlider.value.ToString();
-
-        //    gridSize = (int)gridSizeSlider.value;
-        //    endStep = (int)endStepSlider.value;
-        //    speed = (int)speedSlider.value;
-        //}
-
+        gridSizeValueTxt.text = GridSize.ToString();
+        endStepValueTxt.text = EndStep.ToString();
+        speedValueTxt.text = Speed.ToString();
     }
 }

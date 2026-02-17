@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class SaveParametersManager
 {
+    public static SaveDataGridParameters SaveDataGridParameters { get; private set; }
+
+    public static bool DoesSaveFileAlreadyExists { get { return File.Exists(SaveDataPath); } }
+
     /// <summary>
     /// Property for the path of the save file.
     /// </summary>
@@ -31,8 +35,6 @@ public static class SaveParametersManager
     /// the application's audio system.</param>
     public static void SaveSettingsParameters(int gridSize, int endStep, int speed, float musicVolume, float effectVolume, float uiVolume)
     {
-        Debug.Log($"Grid size : {gridSize}, end step : {endStep}, musicvol : {musicVolume}, uivol : {uiVolume} ");
-
         SaveDataGridParameters data = new SaveDataGridParameters
         {
             gridSize = gridSize,
@@ -52,25 +54,16 @@ public static class SaveParametersManager
     /// Datas are saved from the class SaveDataGridParameters.
     /// </summary>
     /// <returns>SaveDataGridParameters</returns>
-    public static SaveDataGridParameters ChargeSavedParametersFile()
+    public static void ChargeSavedParametersFile()
     {
         SaveDataGridParameters data = null;
 
-        if (File.Exists(SaveDataPath))
+        if (DoesSaveFileAlreadyExists)
         {
             string json = File.ReadAllText(SaveDataPath);
             data = JsonUtility.FromJson<SaveDataGridParameters>(json);
         }
 
-        return data;
-    }
-
-    /// <summary>
-    /// Method to get if a save file already exists.
-    /// </summary>
-    /// <returns>bool</returns>
-    public static bool DoesSaveFileAlreadyExists()
-    {
-        return File.Exists(SaveDataPath);
+        SaveDataGridParameters = data;
     }
 }
