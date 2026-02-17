@@ -7,7 +7,7 @@ public abstract class UISectionSettings : MonoBehaviour
 
     private void Awake()
     {
-        if (SaveParametersManager.DoesSaveFileAlreadyExists)
+        if (SaveSettingsManager.DoesSaveFileAlreadyExists)
         {
             ChargeDataValue();
         }

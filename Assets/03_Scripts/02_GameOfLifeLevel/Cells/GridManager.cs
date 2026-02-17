@@ -7,8 +7,21 @@ using UnityEngine.UIElements;
 
 public sealed class GridManager : MonoBehaviour
 {
-    #region ----SINGLETON INSTANCE GRIDMANAGER----
+    #region ///////////////// SINGLETON INSTANCE GRIDMANAGER \\\\\\\\\\\\\\\\\\
     public static GridManager Instance { get; private set; }
+    #endregion
+
+
+    #region //////////////// GRID MANAGER PROPERTIES & VARIABLES \\\\\\\\\\\\\\\\
+    public int GridSize { get; private set; } = 10;
+    public bool[,] BoolGrid { get; private set; }
+    public GameObject[,] CellGrid { get; private set; }
+
+    [Header("----- CELL PREFAB -----")]
+    public GameObject cellPrefab;
+    private GameObject gridContainer = null;
+    #endregion
+
 
     private void Awake()
     {
@@ -20,40 +33,14 @@ public sealed class GridManager : MonoBehaviour
 
         Instance = this;
     }
-    #endregion
 
-    #region ----GRID MANAGER PROPERTIES----
-    [Header("Grid Manager Properties")]
-    public int GridSize { get; private set; } = 10;
-    public bool[,] BoolGrid { get; private set; }
-    public GameObject[,] CellGrid { get; private set; }
 
-    private GameObject gridContainer = null;
-
-    public GameObject cellPrefab;
-
-    public bool IsGridGenerated
-    {
-        get
-        {
-            return gridContainer != null;
-        }
-    }
-    #endregion
-
-    public void InitializeGridManager(int gridSize)
-    {
-        GridSize = gridSize;
-        BoolGrid = new bool[GridSize, GridSize];
-        CellGrid = new GameObject[GridSize, GridSize];
-        InstantiateDeadCellsGrid();
-    }
-
+    #region ########### METHODS ##########
     private void InstantiateDeadCellsGrid()
     {
         Vector3 cellSize = cellPrefab.GetComponent<CellBehavior>().CellSize;
 
-        gridContainer = new GameObject("----GRIDCONTAINER----");
+        gridContainer = new GameObject("---- GRIDCONTAINER ----");
         gridContainer.transform.position = Vector3.zero;
         gridContainer.layer = LayerMask.NameToLayer("Cells");
 
@@ -69,11 +56,13 @@ public sealed class GridManager : MonoBehaviour
                     z * cellSize.z
                 );
 
-                GameObject empty = new GameObject("Cell_" + x + "_" + "0" + "_" + z);
-                empty.layer = LayerMask.NameToLayer("Cells");
-                empty.transform.SetParent(gridContainer.transform, false);
-                empty.transform.position = position;
-                CellGrid[x, z] = empty;
+                GameObject emptyGO = new GameObject("Cell_" + x + "_" + "0" + "_" + z);
+                emptyGO.layer = LayerMask.NameToLayer("Cells");
+                emptyGO.transform.SetParent(gridContainer.transform, false);
+                emptyGO.transform.position = position;
+
+                CellGrid[x, z] = emptyGO;
+
                 GameObject newCell = Instantiate(cellPrefab, CellGrid[x, z].transform.position, Quaternion.identity, CellGrid[x, z].transform);
                 newCell.layer = LayerMask.NameToLayer("Cells");
                 newCell.GetComponent<CellBehavior>().SetCellState(false);
@@ -90,7 +79,13 @@ public sealed class GridManager : MonoBehaviour
         if (GridSize > 0)
             EventManager.EmitGridParameters(CellGrid[GridSize - 1, GridSize - 1].transform.position);
     }
-
+    public void InitializeGridManager(int gridSize)
+    {
+        GridSize = gridSize;
+        BoolGrid = new bool[GridSize, GridSize];
+        CellGrid = new GameObject[GridSize, GridSize];
+        InstantiateDeadCellsGrid();
+    }
     public void ResetGridToAllDead()
     {
         foreach (GameObject c in CellGrid)
@@ -98,13 +93,11 @@ public sealed class GridManager : MonoBehaviour
             c.transform.GetChild(0).GetComponent<CellBehavior>().SetCellState(false);
         }
     }
-
     public void DeleteGrid()
     {
         if (gridContainer != null)
             Destroy(gridContainer);
     }
-
     public void ApplyGameOfLifeRulesForEachCell()
     {
         foreach (GameObject c in CellGrid)
@@ -112,7 +105,6 @@ public sealed class GridManager : MonoBehaviour
             c.transform.GetChild(0).GetComponent<CellBehavior>().ApplyGameOifeRules();
         }
     }
-
     public void UpdateAllCellStatesNextStep()
     {
         foreach (GameObject c in CellGrid)
@@ -120,7 +112,6 @@ public sealed class GridManager : MonoBehaviour
             c.transform.GetChild(0).GetComponent<CellBehavior>().UpdateCellStateNextStep();
         }
     }
-
     public void ResetAllCellMaterials()
     {
         foreach (GameObject c in CellGrid)
@@ -128,4 +119,5 @@ public sealed class GridManager : MonoBehaviour
             c.transform.GetChild(0).GetComponent<CellBehavior>().HighLightNeighbors(false);
         }
     }
+    #endregion
 }

@@ -22,7 +22,7 @@ public class UISettingsManager : MonoBehaviour
             UIAudioSettings _audioSettings = _sectionSettings.OfType<UIAudioSettings>().FirstOrDefault();
             UIGameSettings _gameSettings = _sectionSettings.OfType<UIGameSettings>().FirstOrDefault();
 
-            SaveParametersManager.SaveSettingsParameters(
+            SaveSettingsManager.SaveSettingsDatas(
                         _gameSettings.GridSize,
                         _gameSettings.EndStep,
                         _gameSettings.Speed,

@@ -44,9 +44,9 @@ public class UIGameSettings : UISectionSettings
 
     public override void ChargeDataValue()
     {
-        GridSize = SaveParametersManager.SaveDataGridParameters.gridSize;
-        EndStep = SaveParametersManager.SaveDataGridParameters.desiredEndStep;
-        Speed = SaveParametersManager.SaveDataGridParameters.speed;
+        GridSize = SaveSettingsManager.DataSaveSettings.gridSize;
+        EndStep = SaveSettingsManager.DataSaveSettings.desiredEndStep;
+        Speed = SaveSettingsManager.DataSaveSettings.speed;
 
         gridSizeValueTxt.text = GridSize.ToString();
         endStepValueTxt.text = EndStep.ToString();

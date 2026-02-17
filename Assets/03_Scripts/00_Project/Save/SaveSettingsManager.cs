@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using UnityEngine;
 
-public static class SaveParametersManager
+public static class SaveSettingsManager
 {
-    public static SaveDataGridParameters SaveDataGridParameters { get; private set; }
+    public static DataSaveSettings DataSaveSettings { get; private set; }
 
     public static bool DoesSaveFileAlreadyExists { get { return File.Exists(SaveDataPath); } }
 
@@ -33,9 +33,9 @@ public static class SaveParametersManager
     /// application's audio system.</param>
     /// <param name="uiVolume">The user interface volume level to be saved. Must be a non-negative integer, with the valid range depending on
     /// the application's audio system.</param>
-    public static void SaveSettingsParameters(int gridSize, int endStep, int speed, float musicVolume, float effectVolume, float uiVolume)
+    public static void SaveSettingsDatas(int gridSize, int endStep, int speed, float musicVolume, float effectVolume, float uiVolume)
     {
-        SaveDataGridParameters data = new SaveDataGridParameters
+        DataSaveSettings data = new DataSaveSettings
         {
             gridSize = gridSize,
             desiredEndStep = endStep,
@@ -49,21 +49,16 @@ public static class SaveParametersManager
         File.WriteAllText(SaveDataPath, json);
     }
 
-    /// <summary>
-    /// Method to get the datas from the save file.
-    /// Datas are saved from the class SaveDataGridParameters.
-    /// </summary>
-    /// <returns>SaveDataGridParameters</returns>
-    public static void ChargeSavedParametersFile()
+    public static void ChargeDataSaveSettingsFile()
     {
-        SaveDataGridParameters data = null;
+        DataSaveSettings data = null;
 
         if (DoesSaveFileAlreadyExists)
         {
             string json = File.ReadAllText(SaveDataPath);
-            data = JsonUtility.FromJson<SaveDataGridParameters>(json);
+            data = JsonUtility.FromJson<DataSaveSettings>(json);
         }
 
-        SaveDataGridParameters = data;
+        DataSaveSettings = data;
     }
 }

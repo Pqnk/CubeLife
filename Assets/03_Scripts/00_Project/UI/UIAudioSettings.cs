@@ -42,9 +42,9 @@ public class UIAudioSettings : UISectionSettings
 
     public override void ChargeDataValue()
     {
-        MusicVolume = SaveParametersManager.SaveDataGridParameters.musicVolume;
-        EffectVolume = SaveParametersManager.SaveDataGridParameters.effectVolume;
-        UIVolume = SaveParametersManager.SaveDataGridParameters.uiVolume;
+        MusicVolume = SaveSettingsManager.DataSaveSettings.musicVolume;
+        EffectVolume = SaveSettingsManager.DataSaveSettings.effectVolume;
+        UIVolume = SaveSettingsManager.DataSaveSettings.uiVolume;
 
         musicVolSlider.value = MusicVolume;
         effectVolSlider.value = EffectVolume;

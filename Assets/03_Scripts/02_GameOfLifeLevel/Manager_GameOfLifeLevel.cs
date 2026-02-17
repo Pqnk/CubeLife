@@ -10,28 +10,21 @@ public enum GameState
     Stopped
 }
 
-public sealed class GameManager : MonoBehaviour
+public sealed class Manager_GameOfLifeLevel : MonoBehaviour
 {
-    #region ----SINGLETON INSTANCE GAMEMANAGER----
-    public static GameManager Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-    }
+    #region ///////////////////// SINGLETON INSTANCE GAMEMANAGER \\\\\\\\\\\\\\\\\\\\\\\\\
+    public static Manager_GameOfLifeLevel Instance { get; private set; }
     #endregion
 
-    #region ----INSPECTOR PRIVATE VARIABLES----
-    [Header("Cell Prefab")]
-    [SerializeField] private GameObject _cellPrefab;
+
+    #region /////////////////// INSPECTOR VARIABLES \\\\\\\\\\\\\\\\\\\\\\\
+
+
+
     #endregion
 
-    #region ----GAMEMANAGER PROPERTIES and VARIABLES----
+
+    #region /////////////////// GAMEMANAGER PROPERTIES \\\\\\\\\\\\\\\\\\\\\\
     private Coroutine _gameCoroutine = null;
     public  int GridSize { get; private set; } = 10;
     public int GameSpeed { get; private set; } = 1;
@@ -42,7 +35,20 @@ public sealed class GameManager : MonoBehaviour
     public bool DesiredEndStepReached { get { return (DesiredEndStep > 0 && NumberStep >= DesiredEndStep); } }
     #endregion
 
-    #region ----GAME METHODS----
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+    }
+
+
+    #region ########## GAME METHODS ##########
     public void ToggleStartPauseGame()
     {
         switch (GameState)
@@ -64,7 +70,6 @@ public sealed class GameManager : MonoBehaviour
                 break;
         }
     }
-
     public void StartGame()
     {
         if (_gameCoroutine == null && !GameStarted)
@@ -74,7 +79,6 @@ public sealed class GameManager : MonoBehaviour
             GridManager.Instance.ResetAllCellMaterials();
         }
     }
-
     public void PauseGame()
     {
         if (_gameCoroutine != null && GameStarted)
@@ -83,7 +87,6 @@ public sealed class GameManager : MonoBehaviour
             StopCoroutine(_gameCoroutine);
         }
     }
-
     public void ResumeGame()
     {
         if (_gameCoroutine != null && GameStarted)
@@ -92,7 +95,6 @@ public sealed class GameManager : MonoBehaviour
             _gameCoroutine = StartCoroutine(LoopStepCounting());
         }
     }
-
     public void StopGame()
     {
         if (_gameCoroutine != null && GameStarted)
@@ -102,7 +104,6 @@ public sealed class GameManager : MonoBehaviour
             _gameCoroutine = null;
         }
     }
-
     public void ResetGame()
     {
         if (_gameCoroutine != null)
@@ -115,35 +116,30 @@ public sealed class GameManager : MonoBehaviour
         GameSpeed = 1;
         GridManager.Instance.ResetGridToAllDead();
     }
-
     public void UpdateSpeedGame(int newGameSpeed)
     {
         GameSpeed = newGameSpeed;
     }
-
     #endregion
 
-    #region ----SAVE PARAMETERS----
+
+    #region ########## SAVE PARAMETERS ##########
 
     public void SaveGridParametersValueAndBegin(int gridSize, int desiredEndStep)
     {
         GridSize = gridSize;
         DesiredEndStep = desiredEndStep;
-        //SaveParametersManager.SaveGridParameters();
-        UIManager.Instance.UpdateParametersInfos();
     }
 
     public void ChargeGridParameterValuesAndBegin()
     {
-        //GridSize = SaveParametersManager.ChargeSavedParametersFile().gridSize;
-        //DesiredEndStep = SaveParametersManager.ChargeSavedParametersFile().desiredEndStep;
         GridManager.Instance.InitializeGridManager(GridSize);
-        UIManager.Instance.UpdateParametersInfos();
     }
 
     #endregion
 
-    #region ----STEP COUNTING COROUTINE----
+
+    #region ########## MAIN LOOP GAME ##########
 
     /// <summary>
     /// Main Game Loop
@@ -163,7 +159,7 @@ public sealed class GameManager : MonoBehaviour
                 StopGame();
             }
 
-            UIManager.Instance.UpdateGameUI();
+            UIManager_GameOfLifeLevel.Instance.UpdateGameUI();
         }
     }
     #endregion

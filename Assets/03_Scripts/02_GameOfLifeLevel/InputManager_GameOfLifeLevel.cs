@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager_GameOfLifeLevel : MonoBehaviour
 {
     private Camera _mainCamera;
     private CellBehavior _cellClicked;
@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
             {
                 GameObject clickedObject = hitInfo.collider.gameObject;
 
-                if (clickedObject.TryGetComponent<CellBehavior>(out CellBehavior cellClicked) && !GameManager.Instance.GameStarted)
+                if (clickedObject.TryGetComponent<CellBehavior>(out CellBehavior cellClicked) && !Manager_GameOfLifeLevel.Instance.GameStarted)
                 {
                     OnLeftClickOnCell(cellClicked, hitInfo);
                 }

@@ -1,5 +1,5 @@
 [System.Serializable]
-public class SaveDataGridParameters
+public class DataSaveSettings
 {
     public int gridSize;
 

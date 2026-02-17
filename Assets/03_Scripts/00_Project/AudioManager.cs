@@ -62,11 +62,11 @@ public sealed class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        if (SaveParametersManager.DoesSaveFileAlreadyExists)
+        if (SaveSettingsManager.DoesSaveFileAlreadyExists)
         {
-            ChangeMusicVolume(SaveParametersManager.SaveDataGridParameters.musicVolume);
-            ChangeUISoundsVolume(SaveParametersManager.SaveDataGridParameters.uiVolume);
-            EffectVolume = SaveParametersManager.SaveDataGridParameters.effectVolume;
+            ChangeMusicVolume(SaveSettingsManager.DataSaveSettings.musicVolume);
+            ChangeUISoundsVolume(SaveSettingsManager.DataSaveSettings.uiVolume);
+            EffectVolume = SaveSettingsManager.DataSaveSettings.effectVolume;
         }
     }
 
@@ -161,9 +161,9 @@ public sealed class AudioManager : MonoBehaviour
     /// to perform the volume adjustment asynchronously.</returns>
     private IEnumerator UpMusicVolumeToMaxSettings()
     {
-        while (_backgroundMusicSource.volume < SaveParametersManager.SaveDataGridParameters.musicVolume)
+        while (_backgroundMusicSource.volume < SaveSettingsManager.DataSaveSettings.musicVolume)
         {
-            _backgroundMusicSource.volume = Mathf.MoveTowards(_backgroundMusicSource.volume, SaveParametersManager.SaveDataGridParameters.musicVolume, Time.deltaTime * 0.2f);
+            _backgroundMusicSource.volume = Mathf.MoveTowards(_backgroundMusicSource.volume, SaveSettingsManager.DataSaveSettings.musicVolume, Time.deltaTime * 0.2f);
             yield return null;
         }
     }

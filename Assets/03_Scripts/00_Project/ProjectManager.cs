@@ -22,7 +22,7 @@ public sealed class ProjectManager : MonoBehaviour
         }
         Instance = this;
 
-        SaveParametersManager.ChargeSavedParametersFile();
+        SaveSettingsManager.ChargeDataSaveSettingsFile();
     }
 
 }
