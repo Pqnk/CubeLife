@@ -61,7 +61,6 @@ public class UIManagerMenuLevel : MonoBehaviour
 
         //  Same for Settings panel
         _settingsPanelrectT.gameObject.SetActive(false);
-        //_settingsPanelNormalPosition = _settingsPanelrectT.localPosition;
 
         //  Initializing buttons appearance - Invisible and not able to interact
         foreach (Button button in _buttonsMenuArray)

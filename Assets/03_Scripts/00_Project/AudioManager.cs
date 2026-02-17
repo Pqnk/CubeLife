@@ -146,7 +146,8 @@ public sealed class AudioManager : MonoBehaviour
         if (_bckgrndMusicDictionary.TryGetValue(levelLoaded, out AudioClip clip))
         {
             _backgroundMusicSource.clip = clip;
-            StartCoroutine(UpMusicVolumeToMax());
+            _backgroundMusicSource.Play();
+            StartCoroutine(UpMusicVolumeToMaxSettings());
         }
     }
 
@@ -158,13 +159,11 @@ public sealed class AudioManager : MonoBehaviour
     /// rate.</remarks>
     /// <returns>An enumerator that controls the progression of the volume increase operation. This can be used with a coroutine
     /// to perform the volume adjustment asynchronously.</returns>
-    private IEnumerator UpMusicVolumeToMax()
+    private IEnumerator UpMusicVolumeToMaxSettings()
     {
-        _backgroundMusicSource.Play();
-
-        while (_backgroundMusicSource.volume < _backgroundmusicMaxVolume)
+        while (_backgroundMusicSource.volume < SaveParametersManager.SaveDataGridParameters.musicVolume)
         {
-            _backgroundMusicSource.volume = Mathf.MoveTowards(_backgroundMusicSource.volume, _backgroundmusicMaxVolume, Time.deltaTime * 0.2f);
+            _backgroundMusicSource.volume = Mathf.MoveTowards(_backgroundMusicSource.volume, SaveParametersManager.SaveDataGridParameters.musicVolume, Time.deltaTime * 0.2f);
             yield return null;
         }
     }

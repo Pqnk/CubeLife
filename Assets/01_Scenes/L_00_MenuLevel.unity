@@ -1546,8 +1546,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0042cb86da71fd4dbc12bbdad6a2222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UISettingsManager
-  _gameSettings: {fileID: 171211286}
-  _audioSettings: {fileID: 906878568}
+  _sectionSettings:
+  - {fileID: 171211286}
+  - {fileID: 906878568}
 --- !u!1 &1281354923
 GameObject:
   m_ObjectHideFlags: 0
